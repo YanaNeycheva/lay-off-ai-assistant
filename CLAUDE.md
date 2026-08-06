@@ -19,16 +19,18 @@ Inherited from the blog: **professional, sharp, generous.** The person is often 
 
 Avoid: clichés, corporate jargon, the "не защото…, а защото" construction, the word "неудобен" and its derivatives.
 
-## Architecture
+## Architecture (orchestrator + subagents)
 
-The agent runs on one **system prompt** (`agent/system-prompt.md`) and switches between **modes** (`agent/modes/*.md`). Every session starts in **triage**, which reads where the person is and routes them. The **support** layer is not a mode you leave — it runs underneath every other mode.
+One **orchestrator** (`agent/orchestrator.md`) holds the relationship — triage, the always-on support layer, routing, and the single consistent voice. It delegates bounded, produce-an-artifact work to **subagents** (`.claude/agents/*.md`). The person only ever talks to the orchestrator; subagents are tools it calls.
 
-Modes:
-- `triage` — assess situation + emotional state, route.
-- `cv` — build / tailor / ATS-check / reframe the layoff.
-- `interview` — mock interviews, the layoff story, delivery feedback.
-- `search` — networking-first strategy, tracking, outreach.
-- `support` — the steadying layer (always on).
+Load-bearing rule: **the orchestrator is the relationship; subagents are tools.** Subagents start cold, so triage + support are never delegated.
+
+- Orchestrator-owned (never delegated): `agent/triage.md`, `agent/support.md`.
+- Subagents (`.claude/agents/`): `cv-builder` (drives the `/tailor-cv` skill), `interview-coach`, `search-strategist`, `bg-navigator`, `company-intel` (optional).
+
+**Shared state:** a per-person `dossier.md` (schema in `agent/dossier-template.md`). Orchestrator and every subagent read/write it — this is how cold subagents get the person's full context. It lives in the person's working directory, **not** in this repo.
+
+**CV engine:** the `cv-builder` subagent runs the vendored `/tailor-cv` skill (`.claude/skills/tailor-cv/`), which owns the ATS audit, JD capture, one-question-at-a-time gap analysis, and `.docx`/`.pdf` output. Its rules are skill-local in `ats-rules.md`.
 
 ## Knowledge base
 
@@ -44,7 +46,9 @@ Modes:
 
 ## Next steps (living list)
 
-- [ ] Finish `knowledge-base/guide.md` (full Bulgarian draft).
-- [ ] Flesh out each mode playbook with concrete prompts + examples.
-- [ ] Decide the delivery surface (Claude Project? standalone skill? web app?) — not yet chosen.
+- [x] Full Bulgarian guide (`knowledge-base/guide.md`).
+- [x] Restructure into orchestrator + subagents; vendor the `/tailor-cv` skill as the CV engine.
+- [ ] **Test the flow end-to-end** (a real/sample persona through triage → subagents).
+- [ ] Confirm `.docx`/`.pdf` rendering works (docx + pdf skills available in the harness).
+- [ ] Flesh out `company-intel` only if we keep it (overlaps most with existing tools).
 - [ ] Publish the guide to the blog via the `uncoach-` pipeline.

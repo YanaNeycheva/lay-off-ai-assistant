@@ -26,15 +26,23 @@ The market is full of single-purpose tools: CV builders, auto-appliers, intervie
 comeback/
 ├── README.md                 ← this file
 ├── CLAUDE.md                 ← instructions for agents working on this project
+├── .claude/
+│   ├── agents/               ← the subagents the orchestrator calls
+│   │   ├── cv-builder.md      ← drives the /tailor-cv skill
+│   │   ├── interview-coach.md
+│   │   ├── search-strategist.md
+│   │   ├── bg-navigator.md    ← BG legal/benefits clock
+│   │   └── company-intel.md   ← optional
+│   └── skills/
+│       └── tailor-cv/        ← vendored CV skill (ATS audit → tailored .docx/.pdf)
+│           ├── SKILL.md
+│           └── ats-rules.md
 ├── agent/
-│   ├── system-prompt.md      ← the agent's core system prompt (Bulgarian-facing)
-│   ├── modes/                ← per-capability playbooks the agent switches between
-│   │   ├── triage.md
-│   │   ├── cv.md
-│   │   ├── interview.md
-│   │   ├── search.md
-│   │   └── support.md
-│   └── templates/            ← reusable CV / outreach / tracking templates
+│   ├── orchestrator.md       ← the single voice; holds the relationship + routing
+│   ├── triage.md             ← orchestrator-owned (never delegated)
+│   ├── support.md            ← orchestrator-owned, always-on layer
+│   ├── dossier-template.md   ← shared case-file schema (state across subagents)
+│   └── templates/            ← reusable CV / outreach templates
 └── knowledge-base/
     ├── guide.md              ← the Bulgarian guide (shared with the blog)
     ├── bg-legal.md           ← BG-specific legal & benefits facts (НОИ, Бюро по труда)
