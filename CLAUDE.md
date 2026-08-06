@@ -21,6 +21,8 @@ Avoid: clichés, corporate jargon, the "не защото…, а защото" c
 
 ## Architecture (orchestrator + subagents)
 
+**Entry point:** the `/comeback` skill (`.claude/skills/comeback/`) is the front door. It fires on `/comeback` or natural phrases ("съкратиха ме", "laid off", …), makes the main assistant adopt the orchestrator persona, bootstraps a per-person `work/<date>-<slug>/dossier.md`, and opens with triage. The orchestrator must be the top-level assistant (not a subagent) because subagents can't spawn subagents.
+
 One **orchestrator** (`agent/orchestrator.md`) holds the relationship — triage, the always-on support layer, routing, and the single consistent voice. It delegates bounded, produce-an-artifact work to **subagents** (`.claude/agents/*.md`). The person only ever talks to the orchestrator; subagents are tools it calls.
 
 Load-bearing rule: **the orchestrator is the relationship; subagents are tools.** Subagents start cold, so triage + support are never delegated.
@@ -48,6 +50,7 @@ Load-bearing rule: **the orchestrator is the relationship; subagents are tools.*
 
 - [x] Full Bulgarian guide (`knowledge-base/guide.md`).
 - [x] Restructure into orchestrator + subagents; vendor the `/tailor-cv` skill as the CV engine.
+- [x] Entry-point `/comeback` skill (front door + per-person dossier bootstrap).
 - [ ] **Test the flow end-to-end** (a real/sample persona through triage → subagents).
 - [ ] Confirm `.docx`/`.pdf` rendering works (docx + pdf skills available in the harness).
 - [ ] Flesh out `company-intel` only if we keep it (overlaps most with existing tools).

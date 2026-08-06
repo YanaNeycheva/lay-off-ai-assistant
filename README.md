@@ -34,6 +34,8 @@ comeback/
 │   │   ├── bg-navigator.md    ← BG legal/benefits clock
 │   │   └── company-intel.md   ← optional
 │   └── skills/
+│       ├── comeback/         ← ENTRY POINT: /comeback launches the orchestrator
+│       │   └── SKILL.md
 │       └── tailor-cv/        ← vendored CV skill (ATS audit → tailored .docx/.pdf)
 │           ├── SKILL.md
 │           └── ats-rules.md
@@ -49,6 +51,10 @@ comeback/
     └── sources.md            ← research sources behind the guide
 ```
 
+## How to launch
+
+Open this folder in Claude Code and type **`/comeback`** (or just say "съкратиха ме" / "laid off"). The assistant becomes the orchestrator, creates a private case file under `work/`, and opens with triage. Run it from *this* directory so the subagents and the `/tailor-cv` skill are in scope.
+
 ## Status
 
-Scaffolding + knowledge base in progress. See `CLAUDE.md` for conventions and next steps.
+Orchestrator + subagents + entry skill in place; knowledge base drafted. Next: end-to-end testing. See `CLAUDE.md` for conventions and next steps.

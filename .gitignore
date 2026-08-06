@@ -13,3 +13,6 @@ Thumbs.db
 # Scratch
 /scratch/
 *.tmp
+
+# Per-person case files (dossiers, CVs) — never version-controlled
+/work/
