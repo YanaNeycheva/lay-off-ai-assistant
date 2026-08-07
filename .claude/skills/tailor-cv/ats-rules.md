@@ -8,7 +8,7 @@ Self-contained ruleset for the `tailor-cv` skill. Adapted from the original CV p
 2. **Standard section headings** — `Summary`, `Work Experience`, `Education`, `Skills`, `Certifications` (BG: `Резюме`, `Опит`, `Образование`, `Умения`, `Сертификати`). No creative headings.
 3. **Clean formatting** — single column; no tables, text boxes, headers/footers, or columns. Scanners read top-to-bottom, left-to-right.
 4. **No images or graphics** — plain text only.
-5. **Dates** — consistent `Month YYYY – Month YYYY` or `YYYY – YYYY`, always with start and end.
+5. **Dates** — consistent `Month YYYY – Month YYYY` or `YYYY–YYYY`, always with start and end. Ranges use an **en-dash** (–), not a hyphen (see `proofing.md`).
 6. **Contact info** — name, email, phone, LinkedIn, location at the very top.
 7. **Skills section** — comma-separated keywords or a simple bulleted list, grouped by category.
 8. **Bullet points for experience** — each bullet starts with a strong action verb.
@@ -27,9 +27,10 @@ Never overwrite a previous version. Every change creates a new versioned file.
 
 1. Read the current `{UserNames} CV_latest.docx`.
 2. Make changes.
-3. Save as the next version number (check `CHANGELOG.md` for the last one).
-4. Update `{UserNames} CV_latest.docx`.
-5. Add a one-line `CHANGELOG.md` entry.
+3. **Run the proofing pass** (`proofing.md`) — en-dashes + grammar/spelling in the CV's language — before saving.
+4. Save as the next version number (check `CHANGELOG.md` for the last one).
+5. Update `{UserNames} CV_latest.docx`.
+6. Add a one-line `CHANGELOG.md` entry.
 
 If you need more input from the person, create `CV_info_needed.md` in the workspace for them to fill; use their answers to fill the gaps.
 

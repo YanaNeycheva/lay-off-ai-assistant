@@ -55,21 +55,26 @@ Compare the JD against the base CV. For each gap or ambiguity:
 
 If the person says "skip" / "no more", stop asking and proceed with what you have.
 
-## Step 4 — Produce the tailored CV
+## Step 4 — Compose the tailored CV
 
-Generate inside the position folder (use the docx skill to render, then export PDF):
-```
-{UserNames} CV - {Company} - {Position Title}.docx
-{UserNames} CV - {Company} - {Position Title}.pdf
-```
-Both live **inside the position folder**, never in the workspace root (root holds only the canonical base CV). Starting from the base CV:
+Compose the tailored CV **content** (rendering happens in Step 5, after proofing). Starting from the base CV:
 - Reposition title/summary to match the JD's title and language.
 - Promote bullets matching JD requirements; demote/cut those that don't.
 - Inject exact JD keywords **only where truthful — never fabricate experience**.
 - Reorder skills to lead with JD-relevant ones.
 - Keep every ATS rule from `ats-rules.md`.
 
-## Step 5 — Log it
+## Step 5 — Proofread, then render
+
+1. **Run the proofing pass** ([proofing.md](proofing.md)) on the composed text: dashes → en-dashes (without breaking legitimate hyphens), and a grammar/spelling check in the CV's language (BG or EN). Apply confident fixes; note anything ambiguous you left.
+2. **Render** with the docx skill, then export PDF, inside the position folder:
+   ```
+   {UserNames} CV - {Company} - {Position Title}.docx
+   {UserNames} CV - {Company} - {Position Title}.pdf
+   ```
+   Both live **inside the position folder**, never in the workspace root (root holds only the canonical base CV).
+
+## Step 6 — Log it
 
 Add to the workspace `CHANGELOG.md`:
 ```
@@ -77,6 +82,6 @@ Add to the workspace `CHANGELOG.md`:
 Tailored CV for {Company} {Position} ({JD URL}). Source: {base version}. Output: `{folder}/`.
 ```
 
-## Step 6 — Summarize
+## Step 7 — Summarize
 
-Report: folder path · what changed vs. the base (3–5 bullets) · any open gaps to fill before submitting.
+Report: folder path · what changed vs. the base (3–5 bullets) · the proofing changes made (typography + grammar) · any open gaps to fill before submitting.
