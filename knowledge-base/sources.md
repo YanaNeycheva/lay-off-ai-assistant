@@ -11,6 +11,14 @@
 - **Обезщетение за Безработица — Acc Consultco** — https://acc-consultco.com/obezshtetenie-za-bezrabotitsa-pridobivane-na-pravo-razmer-red-i-srok-za-otpuskane/
 - **Kodeks na truda — уволнение (lawfirm.bg)** — https://lawfirm.bg/publikatzii/kodeks-na-truda-uvolnenie-na-rabotnitsi-i-sluzhiteli — правна рамка на прекратяването.
 
+### Трудова книжка → електронен трудов запис (реформа 2025)
+
+- **EY България — Преходът от трудова книжка към единен електронен трудов запис** — https://www.ey.com/bg_bg/insights/tax/unified-electronic-employment-record — дати, роля на НАП, съдба на хартиената книжка, съдържание на записа.
+- **TPA Bulgaria — Преходът от трудова книжка към електронен трудов запис** — https://www.tpa-group.bg/bg/news/prehodut-ot-trudova-knijka-kum-elektronen-trudov-zapis/
+- **trudipravo.bg — Регистър на заетостта и единен електронен трудов запис** — https://trudipravo.bg/izbrani-statii/izbrani-statii-ot-epi-trud-i-sotsialno-osiguryavane/registar-na-zaetostta-i-edinen-elektronen-trudov-zapis/
+- **num.bg — Електронна трудова книжка, коментар на промените в КТ** — https://www.num.bg/blog/trudovaknijka
+- **Ключови дати:** в сила от 1 юни 2025 г. (трудови правоотношения); преходен период до 1 юни 2026 г. за оформяне и връщане на хартиените книжки; регистърът се води от НАП.
+
 ## Български: практически
 
 - **Николина Филипова — Karieri.bg** — https://www.karieri.bg/news/40101 — какво да знаете при уволнение (преди, по време, след).
