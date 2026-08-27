@@ -16,3 +16,7 @@ Thumbs.db
 
 # Per-person case files (dossiers, CVs) — never version-controlled
 /work/
+/Personal/
+
+# Local working notes (not shared)
+/TODO.md

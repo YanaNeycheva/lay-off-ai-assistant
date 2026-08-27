@@ -29,6 +29,7 @@ Load-bearing rule: **the orchestrator is the relationship; subagents are tools.*
 
 - Orchestrator-owned (never delegated): `agent/triage.md`, `agent/support.md`.
 - Subagents (`.claude/agents/`): `cv-builder` (drives the `/tailor-cv` skill), `interview-coach`, `search-strategist`, `bg-navigator`, `company-intel` (optional).
+- **Freshness gate:** `freshness-checker` is an independent verifier the orchestrator spawns **on** another subagent's output (chiefly `bg-navigator`) — producer ≠ checker. It confirms every НАП/НОИ/Бюро claim against the official source, returns a per-claim verdict, and stamps last-verified dates into the **Дневник на проверките** table in `bg-legal.md`. It never talks to the person.
 
 **Shared state:** a per-person `dossier.md` (schema in `agent/dossier-template.md`). Orchestrator and every subagent read/write it — this is how cold subagents get the person's full context. It lives in the person's working directory, **not** in this repo.
 
@@ -45,6 +46,15 @@ Load-bearing rule: **the orchestrator is the relationship; subagents are tools.*
 - This is a standalone git repo. Commit/push only when asked.
 - Don't invent BG legal specifics — cite `bg-legal.md` and flag anything unverified.
 - When the guide changes here, mirror it to the blog post (and vice versa).
+
+## Versioning
+
+This project follows [SemVer](https://semver.org/) — `MAJOR.MINOR.PATCH`. The current version lives in the top-level `VERSION` file; the project starts at **0.1.0**.
+
+- Every commit bumps `VERSION` and gets an annotated git tag `vX.Y.Z` (`git tag -a vX.Y.Z -m "…"`).
+- **0.x = active development** — the flow is still being wired up and interfaces may change.
+- **1.0.0 is cut only when** the described flow (triage → subagents → `freshness-checker` gate) works **end-to-end** *and* has tests covering it. Until both hold, stay on 0.x.
+- MAJOR = breaking change to the flow/architecture; MINOR = new capability, backward-compatible; PATCH = fixes and content corrections.
 
 ## Next steps (living list)
 
