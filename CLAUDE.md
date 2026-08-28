@@ -54,6 +54,7 @@ Load-bearing rule: **the orchestrator is the relationship; subagents are tools.*
 This project follows [SemVer](https://semver.org/) — `MAJOR.MINOR.PATCH`. The current version lives in the top-level `VERSION` file; the project starts at **0.1.0**.
 
 - Every commit bumps `VERSION` and gets an annotated git tag `vX.Y.Z` (`git tag -a vX.Y.Z -m "…"`).
+- Every release adds a `CHANGELOG.md` entry (Keep a Changelog format).
 - **0.x = active development** — the flow is still being wired up and interfaces may change.
 - **1.0.0 is cut only when** the described flow (triage → subagents → `freshness-checker` gate) works **end-to-end** *and* has tests covering it. Until both hold, stay on 0.x.
 - MAJOR = breaking change to the flow/architecture; MINOR = new capability, backward-compatible; PATCH = fixes and content corrections.
