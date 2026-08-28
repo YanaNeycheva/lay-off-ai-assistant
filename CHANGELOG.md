@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.3] - 2026-08-28
+
+### Added
+- Dual licensing: MIT for the code, CC BY-NC 4.0 for the `knowledge-base/` content.
+- Top-level `LICENSE` (MIT, with a dual-split header) and `knowledge-base/LICENSE` (full CC BY-NC 4.0 legal code).
+- A "License" section in `README.md` explaining the split.
+
 ## [0.1.2] - 2026-08-28
 
 ### Added
