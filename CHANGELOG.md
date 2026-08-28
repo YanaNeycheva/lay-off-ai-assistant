@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.4] - 2026-08-28
+
+### Added
+- `CONTRIBUTING.md` (concise; points to `CLAUDE.md` for the full conventions).
+- A "Contributing" pointer in `README.md`.
+
 ## [0.1.3] - 2026-08-28
 
 ### Added

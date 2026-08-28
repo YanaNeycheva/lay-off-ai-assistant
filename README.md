@@ -59,6 +59,10 @@ Open this folder in Claude Code and type **`/comeback`** (or just say "съкр�
 
 Orchestrator + subagents + entry skill in place; knowledge base drafted. Next: end-to-end testing. See `CLAUDE.md` for conventions and next steps.
 
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) (and [CLAUDE.md](CLAUDE.md) for the full conventions).
+
 ## License
 
 This project is dual-licensed. The code and everything outside `knowledge-base/` is released under the [MIT License](LICENSE). The written content in `knowledge-base/` — the guide, `bg-legal`, and `sources` — is released under [Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)](knowledge-base/LICENSE): you are free to share and adapt it with attribution, for non-commercial purposes only.
