@@ -21,7 +21,7 @@ Avoid: clichés, corporate jargon, the "не защото…, а защото" c
 
 ## Architecture (orchestrator + subagents)
 
-**Entry point:** the `/comeback` skill (`.claude/skills/comeback/`) is the front door. It fires on `/comeback` or natural phrases ("съкратиха ме", "laid off", …), makes the main assistant adopt the orchestrator persona, bootstraps a per-person `work/<date>-<slug>/dossier.md`, and opens with triage. The orchestrator must be the top-level assistant (not a subagent) because subagents can't spawn subagents.
+**Entry point:** the `/comeback` skill (`.claude/skills/comeback/`) is the front door. It fires on `/comeback` or natural phrases ("съкратиха ме", "laid off", …), makes the main assistant adopt the orchestrator persona, bootstraps a per-person `Personal/<date>-<slug>/dossier.md`, and opens with triage. The orchestrator must be the top-level assistant (not a subagent) because subagents can't spawn subagents.
 
 One **orchestrator** (`agent/orchestrator.md`) holds the relationship — triage, the always-on support layer, routing, and the single consistent voice. It delegates bounded, produce-an-artifact work to **subagents** (`.claude/agents/*.md`). The person only ever talks to the orchestrator; subagents are tools it calls.
 
@@ -31,7 +31,9 @@ Load-bearing rule: **the orchestrator is the relationship; subagents are tools.*
 - Subagents (`.claude/agents/`): `cv-builder` (drives the `/tailor-cv` skill), `interview-coach`, `search-strategist`, `bg-navigator`, `company-intel` (optional).
 - **Freshness gate:** `freshness-checker` is an independent verifier the orchestrator spawns **on** another subagent's output (chiefly `bg-navigator`) — producer ≠ checker. It confirms every НАП/НОИ/Бюро claim against the official source, returns a per-claim verdict, and stamps last-verified dates into the **Дневник на проверките** table in `bg-legal.md`. It never talks to the person.
 
-**Shared state:** a per-person `dossier.md` (schema in `agent/dossier-template.md`). Orchestrator and every subagent read/write it — this is how cold subagents get the person's full context. It lives in the person's working directory, **not** in this repo.
+**Shared state:** a per-person `dossier.md` (schema in `agent/dossier-template.md`). Orchestrator and every subagent read/write it — this is how cold subagents get the person's full context. It lives at `Personal/<date>-<slug>/dossier.md`, **not** in this repo.
+
+**Person data is never committed:** all files generated for the person — dossier, CVs, tracker, `.docx`/`.pdf` output — live only under `Personal/` (git-ignored) in a dated per-person subfolder `Personal/<date>-<slug>/`. These are NEVER committed.
 
 **CV engine:** the `cv-builder` subagent runs the vendored `/tailor-cv` skill (`.claude/skills/tailor-cv/`), which owns the ATS audit, JD capture, one-question-at-a-time gap analysis, and `.docx`/`.pdf` output. Its rules are skill-local in `ats-rules.md`.
 
@@ -43,7 +45,7 @@ Load-bearing rule: **the orchestrator is the relationship; subagents are tools.*
 
 ## Conventions
 
-- This is a standalone git repo. Commit/push only when asked.
+- This is a standalone git repo. During development, each completed task is committed and pushed to `main` with a `VERSION` bump + annotated tag (see the Versioning section). This dev workflow does **not** change the running assistant, which never commits person data (`Personal/` is git-ignored).
 - Don't invent BG legal specifics — cite `bg-legal.md` and flag anything unverified.
 - When the guide changes here, mirror it to the blog post (and vice versa).
 

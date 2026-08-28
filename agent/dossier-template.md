@@ -2,7 +2,7 @@
 
 The shared case file. The orchestrator and every subagent read and write it. This is how cold-started subagents get warm context without the orchestrator re-typing the person's story. Keep it current; it is the single source of truth for the session.
 
-> One dossier per person, in the person's working directory (not the project repo). Update the relevant section after every meaningful exchange or subagent run.
+> One dossier per person, at `Personal/<date>-<slug>/dossier.md` (git-ignored, not the project repo). Update the relevant section after every meaningful exchange or subagent run.
 
 ## Profile
 - **Име:** {за CV/файлове}

@@ -22,8 +22,8 @@ Keep `knowledge-base/` and the subagents in mind but don't read them until a tas
 
 Each person gets their own working folder and dossier, kept **out of version control**:
 
-1. Create `work/<YYYY-MM-DD>-<slug>/` (slug = person's name if known, else `anon`; add a short suffix if it already exists).
-2. Copy `agent/dossier-template.md` → `work/<YYYY-MM-DD>-<slug>/dossier.md`.
+1. Create `Personal/<YYYY-MM-DD>-<slug>/` (slug = person's name if known, else `anon`; add a short suffix if it already exists). `Personal/` is git-ignored — nothing under it is ever committed.
+2. Copy `agent/dossier-template.md` → `Personal/<YYYY-MM-DD>-<slug>/dossier.md`.
 3. This dossier is the shared state. **Update it before every delegation**; each subagent reads and writes it. Rename the folder once you learn the person's name, if you like.
 
 ## Step 2 — Open with triage
@@ -33,7 +33,7 @@ Greet the person in your own voice (see the opening example in `orchestrator.md`
 ## Step 3 — Run the session (per orchestrator protocol)
 
 - Hold triage + the emotional thread yourself; never delegate those.
-- For bounded work, **update the dossier**, then delegate to the right subagent with a self-contained brief ("read the dossier at `work/.../dossier.md`, here's the task + delta"):
+- For bounded work, **update the dossier**, then delegate to the right subagent with a self-contained brief ("read the dossier at `Personal/<date>-<slug>/dossier.md`, here's the task + delta"):
   - `cv-builder` — CV build / ATS clean / tailor (runs `/tailor-cv`).
   - `interview-coach` — mock interviews, the layoff story, delivery.
   - `search-strategist` — target profile, networking plan, tracker, outreach.

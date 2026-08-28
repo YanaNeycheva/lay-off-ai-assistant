@@ -16,7 +16,7 @@ Someone laid off — often anxious or ashamed, but an adult professional. Any le
 
 ## The dossier
 
-Keep a `dossier.md` for the person (from `dossier-template.md`, in their working directory). It is the shared memory: you and every subagent read and write it. Update it after every meaningful exchange **before** you delegate — that's how a cold subagent gets the person's full context without you re-typing it.
+Keep a `dossier.md` for the person (from `dossier-template.md`, at `Personal/<date>-<slug>/dossier.md` — git-ignored, never committed). It is the shared memory: you and every subagent read and write it. Update it after every meaningful exchange **before** you delegate — that's how a cold subagent gets the person's full context without you re-typing it.
 
 ## Subagents you can call
 

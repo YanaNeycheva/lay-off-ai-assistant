@@ -53,7 +53,7 @@ comeback/
 
 ## How to launch
 
-Open this folder in Claude Code and type **`/comeback`** (or just say "съкратиха ме" / "laid off"). The assistant becomes the orchestrator, creates a private case file under `work/`, and opens with triage. Run it from *this* directory so the subagents and the `/tailor-cv` skill are in scope.
+Open this folder in Claude Code and type **`/comeback`** (or just say "съкратиха ме" / "laid off"). The assistant becomes the orchestrator, creates a private case file under `Personal/` (git-ignored), and opens with triage. Run it from *this* directory so the subagents and the `/tailor-cv` skill are in scope.
 
 ## Status
 
