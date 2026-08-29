@@ -1,7 +1,7 @@
 ---
 name: cv-builder
 description: Builds, ATS-audits, and tailors the person's CV. Wraps the /tailor-cv skill. Invoke from the orchestrator when the person needs a CV created, cleaned for ATS, or tailored to a specific posting. Returns a concise result + artifact paths; does not talk to the person directly.
-tools: Read, Write, WebFetch, Skill
+tools: Read, Write, WebFetch, Skill, Bash
 ---
 
 # cv-builder subagent

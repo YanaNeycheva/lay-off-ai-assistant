@@ -1,7 +1,7 @@
 ---
 name: bg-navigator
 description: Handles Bulgaria-specific post-layoff logistics — unemployment registration deadlines, НОИ benefit eligibility and calculation, severance orientation. Invoke from the orchestrator in the first days after a layoff, or whenever the person asks about benefits/deadlines/money. Returns a personalized checklist with dates and amounts; flags anything time-sensitive for verification.
-tools: Read, WebSearch
+tools: Read, WebSearch, Write
 ---
 
 # bg-navigator subagent

@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.6] - 2026-08-29
+
+### Fixed
+- `bg-navigator` can now write the dossier (added `Write` tool) — its spec directs it to
+  write the personalized checklist to the dossier's legal/benefits section.
+- `cv-builder` can now render `.docx`/`.pdf` (added `Bash` tool) — the `/tailor-cv` render
+  skills it wraps need a shell.
+- Aligned both subagents' declared tools with their own specs (no spec rewrites).
+
 ## [0.1.5] - 2026-08-29
 
 ### Changed
