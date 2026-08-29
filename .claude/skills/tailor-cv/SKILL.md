@@ -48,6 +48,8 @@ Ask for it if not already given: **Job URL**, **Company name**, **Position title
 
 ## Step 3 — Gap analysis (ONE question at a time)
 
+> **When driven by `cv-builder` (headless):** gap inputs come pre-filled from the orchestrator's front-loaded brief in the dossier's CV section — don't prompt interactively. Surface any residual gaps back to the orchestrator instead of blocking. The one-at-a-time flow below is for when a person is driving the skill directly.
+
 Compare the JD against the base CV. For each gap or ambiguity:
 1. Ask **ONE** question. Wait for the answer. Then the next.
 2. Never batch questions — one at a time, on purpose.

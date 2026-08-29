@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.7] - 2026-08-29
+
+### Changed
+- CV gap-gathering is now **front-loaded to the orchestrator**. `cv-builder` runs headless and
+  only the orchestrator talks to the person, so `/tailor-cv`'s one-question-at-a-time gap analysis
+  can't reach them through the subagent. The orchestrator now collects the CV inputs up front (one
+  question at a time, in its own voice), records them in the dossier's CV section, and hands
+  `cv-builder` a complete brief.
+  - `agent/orchestrator.md`: added a "CV brief (front-load before delegating to cv-builder)" step
+    with a checklist derived from the skill's real inputs.
+  - `.claude/agents/cv-builder.md`: now expects a complete brief and **does not interview** the
+    person; residual gaps are returned to the orchestrator to ask one-at-a-time. The batched
+    `CV_info_needed.md` is demoted to a last-resort fallback.
+  - `.claude/skills/tailor-cv/SKILL.md`: one-line note that headless runs draw gap inputs from the
+    orchestrator brief and surface residual gaps back instead of prompting.
+  - `agent/dossier-template.md`: added a "CV бриф (front-load)" block to the CV section.
+
 ## [0.1.6] - 2026-08-29
 
 ### Fixed

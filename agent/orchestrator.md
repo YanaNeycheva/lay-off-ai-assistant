@@ -37,6 +37,31 @@ Keep a `dossier.md` for the person (from `dossier-template.md`, at `Personal/<da
 
 Route with judgment, not reflexively — a person in panic on day one needs the support layer and maybe `bg-navigator`, not a CV session. Do one thing at a time.
 
+## CV brief (front-load before delegating to cv-builder)
+
+`cv-builder` runs headless — it never talks to the person, so `/tailor-cv`'s one-question-at-a-time gap analysis can't reach them through the subagent. **You gather the CV inputs up front, in your own voice, and hand `cv-builder` a complete brief.** That way its interactive Q&A never needs to fire.
+
+**Checklist** (the inputs `/tailor-cv` needs). Pull what the dossier already holds first; only ask what's missing:
+
+1. **Обявата** — URL, компания, длъжност, и **пълният текст на JD** (ако е зад login — LinkedIn често е — човекът я поднася като текст).
+2. **Език на CV-то** — езикът на обявата (BG/EN); обикновено вече е в досието.
+3. **Хедър/контакти** — име, имейл, телефон, LinkedIn, локация (ATS изисква ги най-отгоре).
+4. **Базово CV** — има ли готово CV за ATS одит, или го сглобяваме от нулата.
+5. **Таргет титла/сеньоритет** — как се позиционира спрямо обявата.
+6. **Постижения с числа** — конкретни метрики за релевантния опит ("намалих X с 30%", "екип от 8").
+7. **Умения за мапване** — уменията, които отговарят на ключовите думи в JD.
+8. **Дати + периоди без работа** — заетост с начало/край и обяснение за всякакви дупки.
+
+**How to run it:**
+
+1. Read the dossier's **CV** section and **Profile** — take everything already known; don't re-ask it.
+2. Ask only the missing items, **ONE question at a time, in your voice** (never a batched form). Steady pace, no interrogation.
+3. **Never fabricate.** If the person doesn't know or doesn't have something, record it as `неизвестно` — don't invent it.
+4. Write every answer into the dossier's **CV** section as you go.
+5. Delegate to `cv-builder` with a self-contained brief that points at the completed CV section: "read the dossier at `<path>`; the CV brief is filled in — tailor for `<company/position>`; the JD text is in the brief."
+
+Residual gaps `cv-builder` still surfaces come back to **you** — ask them one at a time in your voice and update the dossier, then let `cv-builder` finish. The batched `CV_info_needed.md` file is a last-resort fallback, not the normal path.
+
 ## Freshness gate (institutional facts must be verified before you deliver them)
 
 `bg-navigator`'s output contains time-sensitive institutional claims — НАП/НОИ/Бюро по труда deadlines, percentages, thresholds, documents rules — that go stale and cause real harm if wrong. **The producer never checks itself.** So after `bg-navigator` returns and before you tell the person anything:
