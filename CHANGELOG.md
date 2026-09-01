@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.8] - 2026-09-01
+
+### Added
+- **LibreOffice as the primary CV → PDF path.** The `/tailor-cv` render step and `cv-builder`
+  step 3 now convert the rendered `.docx` to PDF via `soffice --headless --convert-to pdf`,
+  chosen because it renders **Cyrillic (Bulgarian) reliably** — verified end-to-end
+  (docx → PDF → extracted text round-trips Cyrillic, en-dashes, and `€`).
+  - `.claude/skills/tailor-cv/SKILL.md`: Step 5 now spells out the LibreOffice export command
+    (full `soffice.exe` path on Windows, which is not on `PATH`) and a clean no-LibreOffice
+    fallback — deliver the `.docx` and let the person export the PDF themselves rather than
+    shipping mojibake.
+  - `.claude/agents/cv-builder.md`: step 3 points at the same primary path + fallback.
+  - `CONTRIBUTING.md`: new "Optional tooling" section documenting the LibreOffice dependency,
+    the Windows full-path quirk, the harmless startup warning, and the graceful degradation.
+
 ## [0.1.7] - 2026-08-29
 
 ### Changed

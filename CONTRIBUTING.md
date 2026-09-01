@@ -18,6 +18,21 @@ This project follows [SemVer](https://semver.org/). Every change bumps the top-l
 
 By contributing you agree that code contributions are licensed under [MIT](LICENSE), and contributions to `knowledge-base/` content under [CC BY-NC 4.0](knowledge-base/LICENSE).
 
+## Optional tooling
+
+**LibreOffice** (optional, but recommended) is the primary path for exporting tailored CVs to PDF. The `/tailor-cv` skill renders the `.docx` and then converts it to PDF with LibreOffice in headless mode:
+
+```bash
+soffice --headless --convert-to pdf --outdir <folder> <folder>/<file>.docx
+```
+
+We use LibreOffice because it renders **Cyrillic (Bulgarian) reliably** — verified end-to-end (docx → PDF → extracted text round-trips Cyrillic, en-dashes, and `€`).
+
+- **Windows:** installed at `C:\Program Files\LibreOffice\program\soffice.exe`; it is **not on `PATH`**, so call it by full path (`"/c/Program Files/LibreOffice/program/soffice.exe"` from the Bash tool). It prints a harmless `Could not find platform independent libraries` warning and still exits 0 — verify the `.pdf` was written rather than trusting the log.
+- **macOS/Linux:** install LibreOffice; `soffice` (or `libreoffice`) is on `PATH`.
+
+If LibreOffice isn't installed, the flow degrades cleanly: the `.docx` is delivered as the primary artifact and the PDF is left for the person to export themselves (Word / Google Docs → Save as PDF also preserves Cyrillic). Never ship a PDF with broken Cyrillic instead.
+
 ## Never commit person data
 
 All files generated for a person live under `Personal/` (git-ignored). Never commit them.
