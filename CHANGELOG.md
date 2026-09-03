@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.9] - 2026-09-03
+
+### Changed
+- `knowledge-base/bg-legal.md`: the **чл. 54в КСО benefit-duration table** was independently
+  verified against the official **НОИ** source (nssi.bg) and upgraded from ⚠️ непроверено to
+  **✅ потвърдено**. All five осигурителен-стаж ranges confirmed unchanged:
+  до 3 г. → 4 мес.; 3 г. 1 д – 7 г. → 6 мес.; 7 г. 1 д – 11 г. → 8 мес.;
+  11 г. 1 д – 15 г. → 10 мес.; над 15 г. → 12 мес.
+  - Дневник row generalized from the single 7–11 г. range to the whole table, re-dated
+    2026-09-03, official URL = НОИ „при безработица" page; the "вербатим таблица не отворена"
+    caveat removed.
+  - Body duration line stamped as verified against НОИ; the live-check hedge softened to a
+    general "провери при промени" note (no longer непроверено).
+- **Electronic-record row** refresh confirmed consistent with the reform facts already in the
+  file body: трудови правоотношения in force from 1 юни 2025 г., служебни from 1 юни 2026 г.
+  (row re-dated 2026-09-01 by the freshness gate, still fresh; kept ✅).
+
 ## [0.1.8] - 2026-09-01
 
 ### Added
