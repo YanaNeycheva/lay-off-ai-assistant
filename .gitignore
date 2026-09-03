@@ -14,6 +14,10 @@ Thumbs.db
 /scratch/
 *.tmp
 
+# Python
+__pycache__/
+*.py[cod]
+
 # Per-person case files (dossiers, CVs) — never version-controlled
 /work/
 /Personal/

@@ -7,6 +7,36 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-09-03
+
+### Added
+- **`lib/benefits.py` — a deterministic, stdlib-only benefits calculator** that moves the
+  date/duration/money math out of LLM prose. Pure functions mirroring
+  `knowledge-base/bg-legal.md` (cited inline, "keep in sync"):
+  - `bureau_registration_deadline` — 7 **working** days after termination, excluding weekends
+    and the official BG public holidays (incl. the movable Orthodox Easter and the чл. 154, ал. 2
+    substitute Mondays). The 2026 holiday set is a clearly-marked per-year constant with an
+    "update yearly" note, verified against official/reference sources (Easter 2026 = 12 Apr;
+    МС one-off 2 Jan euro-adoption day).
+  - `noi_declaration_deadline` — +3 calendar months, month-end clamped.
+  - `benefit_duration_months` — чл. 54в КСО table with exact boundary handling.
+  - `monthly_benefit_estimate` — 60% of the average осигурителен доход as a daily amount,
+    clamped to [9.21, 54.78] EUR and capped at the 2300 EUR insurable income, × working days;
+    `Decimal`, 2 dp.
+  - A small CLI (`python -m lib.benefits …`) so `bg-navigator` can compute without prose math.
+- **`tests/test_benefits.py`** — 25 stdlib `unittest` tests (run via `python -m unittest discover`):
+  deadline cases spanning a weekend **and** a holiday, an already-missed case, every чл. 54в
+  boundary (3y, 3y+1d, 7y, 7y+1d, 11y, 15y, 15y+1d), the estimate's normal/min/max-clamp cases,
+  and a **drift test** that fails if `lib/benefits.py` and `bg-legal.md` disagree on the key
+  constants (9.21, 54.78, 2300, the чл. 54в months).
+
+### Changed
+- **`bg-navigator` now computes via the helper** (added `Bash`) instead of doing date math in
+  prose. Its spec makes the split explicit: `lib/benefits.py` is the calculator; `bg-legal.md`
+  (verified by `freshness-checker`) is the source of truth for the constants; if they drift, the
+  drift test fails. WebSearch still verifies the constants are current.
+- `.gitignore`: ignore Python `__pycache__/` and bytecode.
+
 ## [0.1.9] - 2026-09-03
 
 ### Changed
