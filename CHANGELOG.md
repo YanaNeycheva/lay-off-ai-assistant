@@ -7,6 +7,34 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-09-04
+
+### Added
+- **`tests/test_invariants.py` — a static repo-invariant test suite** (Layer A;
+  stdlib `unittest`, no pytest) guarding the regressions this repo suffers
+  *silently*:
+  - **Tool/spec match** (the F1-class bug): for every `.claude/agents/*.md`,
+    infer the tools its spec body requires (writes a file → `Write`; renders
+    `.docx`/`.pdf` or calls python/soffice/a shell → `Bash`; runs a skill →
+    `Skill`; web-searches/verifies or fetches a posting → `WebSearch`/`WebFetch`)
+    and assert the frontmatter `tools:` covers them.
+  - **Person data not tracked** — `git ls-files` is empty under `Personal/` and
+    `work/`, and `.gitignore` ignores both.
+  - **VERSION / tag / CHANGELOG agree** — VERSION is SemVer, matches the latest
+    `vX.Y.Z` git tag (skips gracefully when tags aren't fetched), and has a
+    CHANGELOG entry.
+  - **Forbidden phrases** — the "не защото…, а защото" construction and
+    "неудобен"/derivatives are absent from user-facing content
+    (`knowledge-base/`, `agent/templates/`); the rule statements that *define*
+    the bans are deliberately out of scope.
+  - **Freshness gate wired** — `orchestrator.md` still routes through the
+    `freshness-checker` gate.
+  - **bg-legal ДНЕВНИК well-formed** — the "Дневник на проверките" table parses,
+    every status is ✅/⚠️/❗, and every ✅ row cites a source and a date.
+- **`.gitlab-ci.yml`** — a single `test` job on `python:3.12` running
+  `python -m unittest discover -s tests -v` on pushes to `main` and on merge
+  requests. Stdlib only; no install step.
+
 ## [0.2.0] - 2026-09-03
 
 ### Added
