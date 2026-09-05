@@ -7,6 +7,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.0] - 2026-09-05
+
+### Added
+- **End-to-end smoke harness (`tests/e2e/`)** — a repeatable Layer-B smoke test for
+  the full flow (triage → subagents → `freshness-checker` gate → artifacts). The
+  LLM run stays manual/on-demand; what is automated is the deterministic check:
+  - **`tests/e2e/fixture_martin.md`** — the canonical, checked-in scenario: the
+    "Мартин" persona (consistent ~9 г. осиг. стаж; съкратен 2026-08-14; ~3200 лв ≈
+    1636 EUR; ПИК; base CV; target JD) and six scripted persona turns.
+  - **`tests/e2e/check_artifacts.py`** — a stdlib-only artifact checker
+    (`python tests/e2e/check_artifacts.py Personal/<date>-<slug>/`) that asserts the
+    *shape* of a real run: dossier sections (derived from `dossier-template.md`), a
+    tailored CV `.docx` + matching non-trivial `.pdf` under the `cv/` subtree,
+    Cyrillic integrity read straight from `word/document.xml` via `zipfile` (no
+    external dep; catches mojibake), an optional `pdftotext` PDF text check that
+    skips cleanly when the tool is absent, and tracker zones/columns (derived from
+    `templates/tracker.md`). Exits non-zero with a per-check report on failure.
+  - **`tests/e2e/README.md`** — the runbook. On-demand only, **not** in CI: it needs
+    a produced run folder, which lives under git-ignored `Personal/`. The checker is
+    deliberately kept out of `unittest discover` (not named `test*.py`, guarded under
+    `__main__`), so the existing 36-test suite is unaffected.
+
 ## [0.3.0] - 2026-09-04
 
 ### Added
