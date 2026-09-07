@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.2] - 2026-09-07
+
+### Changed
+- **`knowledge-base/bg-legal.md` — чл. 222 КТ severance row stamped ⚠️.** The
+  "Обезщетение по КТ при съкращение" row now records that severance under
+  чл. 222, ал. 1 КТ falls **outside** НАП/НОИ/АЗ scope and is confirmed in writing
+  by the employer, with a last-checked date. The status stays ⚠️ непроверено — no
+  hard number is asserted as verified.
+
 ## [0.4.1] - 2026-09-07
 
 ### Fixed
