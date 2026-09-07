@@ -66,5 +66,6 @@ This project follows [SemVer](https://semver.org/) — `MAJOR.MINOR.PATCH`. The 
 - [x] Entry-point `/comeback` skill (front door + per-person dossier bootstrap).
 - [x] **Test the flow end-to-end** (a real/sample persona through triage → subagents).
 - [x] Confirm `.docx`/`.pdf` rendering works (docx + pdf skills available in the harness).
-- [ ] Flesh out `company-intel` only if we keep it (overlaps most with existing tools).
-- [ ] Publish the guide to the blog via the `uncoach-` pipeline.
+- [x] Keep & flesh out `company-intel` — done in v1.1.0 (given `Write`; writes its own dossier section).
+
+Shipped at 1.0.0; remaining items are optional (auto-resume guard, `.gitattributes`).

@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.1] - 2026-09-08
+
+### Changed
+- **CLAUDE.md "Next steps" synced with reality.** Ticked and reworded the
+  `company-intel` item (kept & fleshed out in v1.1.0 — given `Write`, writes its
+  own dossier section) and removed the "publish the guide to the blog via the
+  `uncoach-` pipeline" line as out of scope for this repo. The blog relationship
+  stays documented in the Sibling-project note.
+
 ## [1.1.0] - 2026-09-07
 
 ### Changed
