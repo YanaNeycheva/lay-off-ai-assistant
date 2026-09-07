@@ -190,44 +190,51 @@ def check_cv(run_dir, rep):
             f"{os.path.relpath(biggest, run_dir)} = {size} bytes",
         )
 
-    # Cyrillic integrity via zipfile on the .docx (no external dep).
-    _check_docx_cyrillic(tailored_docx or docx_paths, run_dir, rep)
+    # Cyrillic integrity via zipfile on the .docx (no external dep). Scan the
+    # FULL docx set, not tailored-only: an English tailored CV correctly has no
+    # Cyrillic, and the always-Bulgarian base CV carries the signal.
+    _check_docx_cyrillic(docx_paths, run_dir, rep)
     # Optional PDF text check.
     _check_pdf_cyrillic(pdf_paths, run_dir, rep)
 
 
 def _check_docx_cyrillic(docx_paths, run_dir, rep):
-    target = docx_paths[0]
-    try:
-        with zipfile.ZipFile(target) as zf:
-            xml = zf.read("word/document.xml").decode("utf-8", "replace")
-    except (zipfile.BadZipFile, KeyError, OSError) as exc:
-        rep.add("CV .docx has Cyrillic (zipfile)", False,
-                f"could not read word/document.xml: {exc}")
-        return
-    has_cyr = bool(CYRILLIC_RE.search(xml))
-    # A JD/CV can be English; the point is the render is not mojibake. Bulgarian
-    # UI/labels and the person's name make Cyrillic the expected signal. If the
-    # tailored CV is fully English, we still expect *some* Cyrillic somewhere in
-    # the workspace docx set — fall back across all docx before failing.
-    if not has_cyr and len(docx_paths) > 1:
-        for extra in docx_paths[1:]:
-            try:
-                with zipfile.ZipFile(extra) as zf:
-                    if CYRILLIC_RE.search(zf.read("word/document.xml")
-                                          .decode("utf-8", "replace")):
-                        has_cyr = True
-                        target = extra
-                        break
-            except (zipfile.BadZipFile, KeyError, OSError):
-                continue
-    rep.add(
-        "CV .docx has Cyrillic (zipfile)",
-        has_cyr,
-        f"{os.path.relpath(target, run_dir)} — "
-        + ("Cyrillic found in word/document.xml"
-           if has_cyr else "NO Cyrillic — possible mojibake/garbled render"),
-    )
+    """Assert at least ONE CV .docx in the run contains Cyrillic.
+
+    A JD/CV can be English; the point is that the BG render is not mojibake. An
+    English tailored CV *correctly* carries no Cyrillic (Latin name, English role),
+    so we scan every CV .docx and PASS if ANY of them contains Cyrillic in
+    word/document.xml — the always-Bulgarian base CV guarantees this. We only FAIL
+    if NONE do, which is the real garbled/mojibake signal.
+
+    Known limitation: a run with NO Bulgarian CV at all (English base + English
+    target) would have no Cyrillic to find and would need this check relaxed or
+    skipped. That is out of scope for the BG-focused fixture, whose base CV is
+    always Bulgarian.
+    """
+    has_cyr = False
+    target = docx_paths[0]  # for the detail line if nothing has Cyrillic
+    unreadable = []
+    for path in docx_paths:
+        try:
+            with zipfile.ZipFile(path) as zf:
+                xml = zf.read("word/document.xml").decode("utf-8", "replace")
+        except (zipfile.BadZipFile, KeyError, OSError) as exc:
+            unreadable.append(f"{os.path.relpath(path, run_dir)} ({exc})")
+            continue
+        if CYRILLIC_RE.search(xml):
+            has_cyr = True
+            target = path
+            break
+    if has_cyr:
+        detail = (f"{os.path.relpath(target, run_dir)} — "
+                  "Cyrillic found in word/document.xml")
+    else:
+        detail = ("no CV .docx contained Cyrillic — possible mojibake/garbled "
+                  f"render (scanned {len(docx_paths)})")
+        if unreadable:
+            detail += "; unreadable: " + ", ".join(unreadable)
+    rep.add("at least one CV .docx has Cyrillic (zipfile)", has_cyr, detail)
 
 
 def _check_pdf_cyrillic(pdf_paths, run_dir, rep):

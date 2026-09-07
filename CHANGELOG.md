@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.1] - 2026-09-07
+
+### Fixed
+- **E2E checker false-failed the Cyrillic check on an English tailored CV.**
+  `check_artifacts.py` passed only the tailored `.docx` to the Cyrillic check, and
+  the cross-docx fallback was guarded by `len(docx_paths) > 1`, so a legitimately
+  all-English tailored CV (Latin name, English role) read as "NO Cyrillic —
+  possible mojibake" and the run exited 1. The check now scans the **full** CV
+  `.docx` set and asserts "at least one CV `.docx` has Cyrillic" — the
+  always-Bulgarian base CV carries the signal, an English tailored CV correctly has
+  none, and only a run where **no** `.docx` has Cyrillic (a real garbled render)
+  fails. Added `tests/test_e2e_checker.py` (stdlib `unittest`, synthetic `zipfile`
+  `.docx`) to regression-proof it: English-tailored + Bulgarian-base passes,
+  none-Cyrillic fails.
+
 ## [0.4.0] - 2026-09-05
 
 ### Added
