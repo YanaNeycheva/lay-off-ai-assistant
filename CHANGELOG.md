@@ -7,6 +7,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.0] - 2026-09-07
+
+### First stable release
+
+The comeback assistant reaches 1.0.0: the full orchestrator → subagent flow works
+end-to-end and is covered by an automated test suite.
+
+- **Flow, end-to-end.** The orchestrator holds the relationship (triage + always-on
+  support) and delegates bounded, produce-an-artifact work to subagents:
+  `bg-navigator` (BG post-layoff logistics) gated by the independent
+  `freshness-checker` (producer ≠ checker; stamps last-verified dates into
+  `bg-legal.md`), a front-loaded `cv-builder` driving the `/tailor-cv` skill with
+  LibreOffice PDF rendering, `search-strategist`, and `interview-coach`. The person
+  only ever talks to the orchestrator.
+- **Test coverage.** An automated suite backs the flow: a deterministic benefits
+  calculator, static invariant checks, and an e2e smoke harness (checked-in
+  "Мартин" fixture + stdlib artifact checker), validated on a real run — wired into
+  GitLab CI.
+
+Both 1.0.0 criteria in CLAUDE.md are met: the described flow (triage → subagents →
+`freshness-checker` gate) works end-to-end **and** has tests covering it.
+
 ## [0.4.2] - 2026-09-07
 
 ### Changed

@@ -64,7 +64,7 @@ This project follows [SemVer](https://semver.org/) — `MAJOR.MINOR.PATCH`. The 
 - [x] Full Bulgarian guide (`knowledge-base/guide.md`).
 - [x] Restructure into orchestrator + subagents; vendor the `/tailor-cv` skill as the CV engine.
 - [x] Entry-point `/comeback` skill (front door + per-person dossier bootstrap).
-- [ ] **Test the flow end-to-end** (a real/sample persona through triage → subagents).
-- [ ] Confirm `.docx`/`.pdf` rendering works (docx + pdf skills available in the harness).
+- [x] **Test the flow end-to-end** (a real/sample persona through triage → subagents).
+- [x] Confirm `.docx`/`.pdf` rendering works (docx + pdf skills available in the harness).
 - [ ] Flesh out `company-intel` only if we keep it (overlaps most with existing tools).
 - [ ] Publish the guide to the blog via the `uncoach-` pipeline.
