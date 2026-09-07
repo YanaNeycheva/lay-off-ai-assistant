@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.1] - 2026-09-07
+
+### Changed
+- **Documented the silent `.docx`/python-docx dependency.** The CV pipeline's
+  `.docx` writer (the harness `docx` skill, with the `python-docx` package as
+  fallback) is now stated as a dependency in `CONTRIBUTING.md`'s "Optional tooling"
+  section — mirroring how LibreOffice is documented (what it's for, graceful
+  behavior when absent) — and named inline in `cv-builder.md`'s render step so the
+  dependency isn't implicit.
+- **`bg-navigator` forbids guessed numeric ranges.** Sharpened its "never invent"
+  rule to state explicitly that it must not emit approximate ranges or figures in
+  prose (e.g. "8–9 мес."): deterministic values come only from `lib/benefits.py`,
+  facts from `bg-legal.md`, and anything else is surfaced as
+  "провери в НОИ/бюрото по труда" rather than estimated.
+
 ## [1.0.0] - 2026-09-07
 
 ### First stable release

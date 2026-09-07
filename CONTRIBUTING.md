@@ -33,6 +33,8 @@ We use LibreOffice because it renders **Cyrillic (Bulgarian) reliably** — veri
 
 If LibreOffice isn't installed, the flow degrades cleanly: the `.docx` is delivered as the primary artifact and the PDF is left for the person to export themselves (Word / Google Docs → Save as PDF also preserves Cyrillic). Never ship a PDF with broken Cyrillic instead.
 
+**python-docx** (or the harness `docx` skill) is the CV pipeline's `.docx` writer — the `/tailor-cv` render step builds the `.docx` with it before the LibreOffice PDF step above. When the `docx` skill is in context the pipeline uses it; otherwise it falls back to the `python-docx` package. If neither is available, `.docx` rendering can't proceed, so install `python-docx` (`pip install python-docx`) when running the CV pipeline outside the harness.
+
 ## Never commit person data
 
 All files generated for a person live under `Personal/` (git-ignored). Never commit them.

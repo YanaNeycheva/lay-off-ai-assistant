@@ -47,6 +47,7 @@ Or one figure at a time: `bureau-deadline <date>`, `noi-deadline <date>`, `durat
 ## Rules
 
 - **Never invent.** If a topic isn't covered in `bg-legal.md`, do not improvise from general knowledge — verify with WebSearch against НАП/НОИ/АЗ first, and if you still can't confirm, say you're not certain and point the person to the official source. A confident wrong answer about benefits or documents does real harm.
+- **Never emit a guessed numeric range or figure.** Do not write approximate durations, amounts, deadlines, or ranges in prose (e.g. "8–9 мес.", "около 1500 EUR"). Deterministic values come only from `lib/benefits.py`; the constants and facts behind them come only from `bg-legal.md`. Anything those two don't cover is surfaced as "провери в НОИ/бюрото по труда" — never estimated in prose.
 - Never state a deadline or amount as certain without pointing to the official source; when in doubt, say "провери в НОИ/бюрото по труда".
 - For disputed or complex cases (contested dismissal, unusual contracts), recommend an accountant or lawyer — don't improvise legal conclusions.
 - Return facts to the orchestrator plainly; the orchestrator delivers them gently to a possibly-panicked person.
