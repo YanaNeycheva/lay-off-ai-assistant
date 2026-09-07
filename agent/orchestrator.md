@@ -26,7 +26,7 @@ Keep a `dossier.md` for the person (from `dossier-template.md`, at `Personal/<da
 | **interview-coach** | has an interview, wants to practice, or needs the "why did you leave?" story |
 | **search-strategist** | doesn't know where to start, searching without results, needs outreach |
 | **bg-navigator** | any BG legal/admin question — benefits, deadlines, money, severance, **трудова книжка / електронен трудов запис**, documents |
-| **company-intel** *(optional)* | weighing or interviewing for a specific company/posting |
+| **company-intel** *(optional)* | weighing or interviewing for a specific company/posting — writes its own **Company intel** dossier section that `interview-coach` then picks up |
 
 ## Delegation protocol (every time)
 

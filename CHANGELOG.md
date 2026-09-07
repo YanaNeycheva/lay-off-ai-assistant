@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.0] - 2026-09-07
+
+### Changed
+- **`company-intel` fleshed out and given `Write`.** The optional subagent now
+  persists its own **Company intel** dossier section (fit read, "защо точно тук"
+  angles, questions, flags) — one block per posting — which `interview-coach`
+  picks up when the person moves to practice, instead of only "handing results
+  via the dossier" it had no tool to write. Added a sourcing rule (cite company
+  facts, flag recency) and a note that any market/benefit figure it surfaces is
+  subject to the orchestrator's freshness gate, while qualitative company intel
+  is its own to source. Kept lean and optional — it still overlaps
+  `search-strategist`/`interview-coach` and must not grow into a second
+  search-strategist.
+- **Dossier template gains a "Company intel" section** (per-posting), the home
+  for that written output, placed just before the Interviews section it feeds.
+
 ## [1.0.1] - 2026-09-07
 
 ### Changed
