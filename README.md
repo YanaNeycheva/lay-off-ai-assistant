@@ -32,6 +32,7 @@ comeback/
 │   │   ├── interview-coach.md
 │   │   ├── search-strategist.md
 │   │   ├── bg-navigator.md    ← BG legal/benefits clock
+│   │   ├── freshness-checker.md ← independent verifier of institutional facts
 │   │   └── company-intel.md   ← optional
 │   └── skills/
 │       ├── comeback/         ← ENTRY POINT: /comeback launches the orchestrator
@@ -57,7 +58,7 @@ Open this folder in Claude Code and type **`/comeback`** (or just say "съкр�
 
 ## Status
 
-Orchestrator + subagents + entry skill in place; knowledge base drafted. Next: end-to-end testing. See `CLAUDE.md` for conventions and next steps.
+Shipped and stable (see `VERSION`). The full orchestrator → subagent flow — triage → subagents → `freshness-checker` gate → artifacts — works end-to-end and is backed by an automated test suite (`tests/`), enforced before every push by the local test gate (see [CONTRIBUTING.md](CONTRIBUTING.md)). See `CLAUDE.md` for conventions and `CHANGELOG.md` for history.
 
 ## Contributing
 

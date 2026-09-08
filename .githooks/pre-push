@@ -1,0 +1,44 @@
+#!/bin/sh
+# Local pre-push test gate.
+#
+# Runs the full stdlib unittest suite before every push and ABORTS the push
+# (non-zero exit) if any test fails. This is the repo's test gate — it replaces
+# the old server-side GitLab CI job.
+#
+# Enable it once per clone with:
+#     git config core.hooksPath .githooks
+#
+# It resolves the repo root itself, so it works regardless of the directory
+# from which git invokes it.
+
+repo_root=$(git rev-parse --show-toplevel) || exit 1
+cd "$repo_root" || exit 1
+
+# Pick a *working* Python interpreter. We probe each candidate rather than
+# trusting the name, because on Windows `python3` is often a non-functional
+# Microsoft Store execution-alias stub that resolves but errors when run.
+PY=""
+for cand in python3 python py; do
+    if command -v "$cand" >/dev/null 2>&1 && "$cand" -c "import sys" >/dev/null 2>&1; then
+        PY="$cand"
+        break
+    fi
+done
+if [ -z "$PY" ]; then
+    echo "pre-push: no working python interpreter found on PATH — cannot run the test gate." >&2
+    exit 1
+fi
+
+echo "pre-push: running test suite (python -m unittest discover -s tests)..."
+"$PY" -m unittest discover -s tests
+status=$?
+
+if [ "$status" -ne 0 ]; then
+    echo >&2
+    echo "pre-push: TESTS FAILED (exit $status) — push aborted." >&2
+    echo "pre-push: fix the suite (python -m unittest discover -s tests) before pushing." >&2
+    exit 1
+fi
+
+echo "pre-push: all tests passed — proceeding with push."
+exit 0

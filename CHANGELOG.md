@@ -7,6 +7,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.2.0] - 2026-09-08
+
+### Changed
+- **Replaced the GitLab CI pipeline with a local pre-push test gate.** The
+  server-side `.gitlab-ci.yml` job is gone; a version-controlled
+  `.githooks/pre-push` hook now runs the full suite
+  (`python -m unittest discover -s tests`) and aborts the push with a clear
+  message if any test fails. Enable it once per clone with
+  `git config core.hooksPath .githooks`. The hook is stdlib-only and probes for
+  a working Python interpreter (so it survives Windows' non-functional
+  `python3` Store stub). Documented in `CONTRIBUTING.md` under a new
+  "Local test gate" section.
+- **Doc recheck (Part A) fixes.** `README.md`: the "Status" section was stale
+  ("Next: end-to-end testing") — refreshed to state the flow is shipped, stable,
+  and enforced by the pre-push gate; the structure tree now lists the
+  `freshness-checker` subagent that was missing from it. `tests/e2e/README.md`:
+  reworded its "not part of CI" / "the 36 CI tests" references (there is no CI
+  now, and the suite count had drifted) to point at the automated suite the
+  pre-push gate runs.
+
+### Removed
+- **`.gitlab-ci.yml`** — superseded by the local pre-push gate above.
+
 ## [1.1.1] - 2026-09-08
 
 ### Changed

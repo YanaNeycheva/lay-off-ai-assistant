@@ -5,17 +5,18 @@ A **repeatable** end-to-end smoke test for the comeback flow: triage → subagen
 
 - **The LLM run is manual / on-demand.** You drive the assistant through the
   canonical scenario yourself — there is no way to assert a language-model
-  conversation deterministically in CI.
+  conversation deterministically in an automated suite.
 - **The check is automated and deterministic.** [`check_artifacts.py`](check_artifacts.py)
   inspects the *run folder* the assistant produced and asserts its **shape** —
   files, structure, a matching `.docx`/`.pdf` pair, Cyrillic integrity, tracker
   zones. No LLM, no external dependencies (stdlib only).
 
-> **This is not part of CI.** The check needs a produced run folder, and every run
-> folder lives under `Personal/` (git-ignored). So this harness is run **by hand,
-> on demand** — it is deliberately kept out of `unittest discover` (the checker is
-> not named `test*.py`, and its logic is guarded under `__main__`). The static
-> invariant suite in `tests/test_*.py` (the 36 CI tests) is untouched by it.
+> **This is not part of the automated suite.** The check needs a produced run
+> folder, and every run folder lives under `Personal/` (git-ignored). So this
+> harness is run **by hand, on demand** — it is deliberately kept out of
+> `unittest discover` (the checker is not named `test*.py`, and its logic is
+> guarded under `__main__`). The static invariant suite in `tests/test_*.py` —
+> the one the pre-push gate runs — is untouched by it.
 
 ## Files
 

@@ -1,0 +1,3 @@
+# The pre-push hook is a POSIX shell script: force LF so its shebang works on
+# Unix even when committed from Windows (autocrlf would otherwise give it CRLF).
+.githooks/pre-push text eol=lf

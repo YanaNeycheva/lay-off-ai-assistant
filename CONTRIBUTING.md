@@ -14,6 +14,22 @@ One **orchestrator** ([agent/orchestrator.md](agent/orchestrator.md)) holds the 
 
 This project follows [SemVer](https://semver.org/). Every change bumps the top-level `VERSION` file, gets an annotated tag (`git tag -a vX.Y.Z -m "…"`), and adds a [CHANGELOG.md](CHANGELOG.md) entry ([Keep a Changelog](https://keepachangelog.com/) format).
 
+## Local test gate
+
+The full test suite must pass before every push. This is enforced locally by a version-controlled `pre-push` hook (`.githooks/pre-push`) — there is no server-side CI. Enable it once per clone:
+
+```bash
+git config core.hooksPath .githooks
+```
+
+From then on, `git push` first runs `python -m unittest discover -s tests` and **aborts the push (non-zero exit) if any test fails**. To run the suite by hand at any time:
+
+```bash
+python -m unittest discover -s tests
+```
+
+The hook is stdlib-only and picks a working Python interpreter automatically. (The e2e smoke harness in `tests/e2e/` is deliberately *not* part of this suite — see its runbook.)
+
 ## Licensing
 
 By contributing you agree that code contributions are licensed under [MIT](LICENSE), and contributions to `knowledge-base/` content under [CC BY-NC 4.0](knowledge-base/LICENSE).
