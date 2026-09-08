@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.2.1] - 2026-09-08
+
+### Fixed
+- README's "uncoachable.work" link pointed at a relative repo path
+  (`../uncoachable.work`), which GitHub resolved as a folder instead of the
+  site. It now links to `https://uncoachable.work`.
+
 ## [1.2.0] - 2026-09-08
 
 ### Changed

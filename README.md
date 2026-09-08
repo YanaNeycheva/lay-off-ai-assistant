@@ -5,7 +5,7 @@ An interactive assistant that supports a laid-off professional through the whole
 **Working name:** `comeback` (easy to rename).
 **Language (user-facing):** Bulgarian.
 **Audience:** any laid-off professional (junior to senior, any industry).
-**Sibling project:** the [uncoachable.work](../uncoachable.work) blog. The guide that grounds this agent is also published there as a post.
+**Sibling project:** the [uncoachable.work](https://uncoachable.work) blog. The guide that grounds this agent is also published there as a post.
 
 ## Why this exists
 
