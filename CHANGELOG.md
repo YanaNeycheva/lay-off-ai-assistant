@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.3.0] - 2026-09-08
+
+### Changed
+- **Rewrote the README for a first-time visitor.** It now leads with the full
+  capability map — surfacing the BG benefits/legal clock and the fact-verification
+  layer that were previously buried, so it no longer reads as a CV tool with extras —
+  and adds a "How to use it" section: prerequisites, how to launch, a "what you can
+  ask for" table of real phrases → outcomes, and what you get and where. The raw file
+  tree is condensed to a short "How it works".
+
 ## [1.2.1] - 2026-09-08
 
 ### Fixed
