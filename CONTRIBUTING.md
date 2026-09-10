@@ -10,6 +10,13 @@ Bulgarian for user-facing content (the agent's replies, the guide, templates, mo
 
 One **orchestrator** ([agent/orchestrator.md](agent/orchestrator.md)) holds the relationship and routes work to **subagents** ([.claude/agents/](.claude/agents/)), which are bounded tools it calls. The `freshness-checker` subagent independently verifies institutional facts (НАП / НОИ / Бюро по труда) in another subagent's output — producer ≠ checker.
 
+## Proposing a change
+
+Don't commit straight to `main`. Contribute one of two ways:
+
+- **A change:** create a branch off `main`, commit your work there, push the branch, and open a **pull request** (the GitHub equivalent of a merge request) for review. Keep the branch focused on one change, and follow the versioning + test-gate rules below.
+- **An idea or a problem:** if you're not ready to write the change yourself, just **open an issue** describing it. That's a perfectly good contribution on its own.
+
 ## Versioning & workflow
 
 This project follows [SemVer](https://semver.org/). Every change bumps the top-level `VERSION` file, gets an annotated tag (`git tag -a vX.Y.Z -m "…"`), and adds a [CHANGELOG.md](CHANGELOG.md) entry ([Keep a Changelog](https://keepachangelog.com/) format).

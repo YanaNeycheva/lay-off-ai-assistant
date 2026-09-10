@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.3.2] - 2026-09-10
+
+### Added
+- **`CONTRIBUTING.md` "Proposing a change" section.** Contributors should not commit
+  straight to `main`: either branch off `main` and open a pull request (the GitHub
+  equivalent of a merge request), or — if not ready to write the change — just open an
+  issue.
+
 ## [1.3.1] - 2026-09-10
 
 ### Fixed
