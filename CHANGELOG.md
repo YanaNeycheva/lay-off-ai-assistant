@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.3.1] - 2026-09-10
+
+### Fixed
+- **Verified two stale rows in `knowledge-base/bg-legal.md` via `freshness-checker`.**
+  - **чл. 222, ал. 1 КТ (severance):** replaced the vague "ориентир 1 бруто (+ възможен
+    период)" with the exact statutory wording (брутно трудово възнаграждение за времето
+    без работа, но не повече от 1 месец; по-дълъг срок само ако е уговорен в КТД/ИТД),
+    sourced against the consolidated Кодекс на труда on lex.bg. Row promoted from
+    ⚠️ непроверено to ✅ потвърдено (2026-09-10). This статут-based fact sits outside the
+    НАП/НОИ/АЗ mandate, so it is verified against the legal text itself.
+  - **Преходен период (хартиена книжка):** the "до 1 юни 2026 г." transition had already
+    elapsed, leaving the body speaking in future tense about past events. Rewrote the
+    "Трудова книжка и електронен трудов запис" section into past/present tense (both stages
+    now in force; paper books should already be returned — retrieve from employer if not;
+    keep paper proof until retirement per НОИ). Row promoted to ✅ потвърдено (2026-09-10),
+    sourced against НОИ + НАП Регистър на заетостта.
+
 ## [1.3.0] - 2026-09-08
 
 ### Changed
