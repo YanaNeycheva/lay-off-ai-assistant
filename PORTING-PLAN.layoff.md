@@ -15,6 +15,13 @@ support custom subagents and per-agent models natively — so for this project t
 > targets all support real subagents, and the `freshness-checker` gate is only sound when it runs
 > as a *separate* agent from its producer (see Invariant 2). Keep true subagents.
 
+> **▶ Current milestone.** Phase 2 pilot spike (OpenCode, benefits safety slice) — **COMPLETE,
+> incl. a live behavioral run.** Structural checks green (`unittest`, `lint_opencode_spike.py`,
+> empty `.claude/` diff vs v1.4.0) **and** the slice ran end-to-end in OpenCode Desktop against the
+> Martin persona (`tools/check_benefits_slice.py` → PASS). **Next milestone: Phase 3** — extract the
+> per-tool adapter descriptor from the spike's friction log, and re-derive the slice from
+> `body + adapter`. Point `/goal` there, not at §7's full DoD (which is the *final* done).
+
 ---
 
 ## 0. Inventory & coupling audit (generic Phase 0)
@@ -139,9 +146,50 @@ harness-content dependency was removed:
 - Verified: full suite 50/50 green; a real Cyrillic CV renders (0 tables → ATS-clean, en-dashes,
   Cyrillic intact); tracker exports 5 sheets.
 
-> These edits **touch `.claude/` bodies**, so the Layer-1 golden baseline (below) must be captured
-> **as of this commit**, treating these as the intentional, reviewed Phase-1 changes the generic
-> plan allows — not as a regression to diff away.
+> These edits **touch `.claude/` bodies**, so the Layer-1 golden baseline is captured **as of the
+> `v1.4.0` commit**, treating these as the intentional, reviewed Phase-1 changes the generic plan
+> allows — not as a regression to diff away.
+
+**Phase 1 is committed** on branch `tool-agnostic` as `v1.4.0` (VERSION + CHANGELOG bumped, annotated
+tag). `git diff --stat v1.4.0 -- .claude/` is the Layer-1 no-regression check; it is currently empty.
+
+**Phase 2 pilot spike (OpenCode) — COMPLETE, behaviorally validated.** Hand-ported the benefits
+safety slice under `.opencode/agents/`: `comeback` (primary/entry, spawns the slice), `bg-navigator`,
+`freshness-checker` — bodies neutralized, frontmatter in OpenCode's verified format
+(`.opencode/agents/`, `permission` map, `provider/model-id`, spawn via Task tool / `@mention`).
+`tools/lint_opencode_spike.py` (stdlib) validates them offline → `RESULT: PASS`.
+
+**Live run (2026-09-15, OpenCode Desktop v1.18.31, model "Big Pickle" / OpenCode Zen).** Opened the
+LayOff project, selected the `Comeback` agent (OpenCode discovered it), and fed the Martin persona's
+Turn-1+2 (layoff + benefits question). Observed, in order: orchestrator read its 4 instruction files
+→ `mkdir Personal/2026-09-15-anon/` → wrote `dossier.md` → **spawned `Bg-Navigator`** (which ran
+`python -m lib.benefits` several times — 3200 BGN→1636 EUR conversion, `bureau-deadline`,
+`noi-deadline`, `estimate` — then edited the dossier) → **spawned `Freshness-Checker`** (verified
+against nssi.bg/nra.bg/lex.bg and stamped `bg-legal.md`'s Дневник table). The dossier's
+`## Legal / benefits` came out fully populated with deterministic values (Bureau 25.08.2026, НОИ
+14.11.2026, ~981.60 EUR/mo, 8 months) + a "За потвърждаване" freshness handoff.
+`tools/check_benefits_slice.py Personal/2026-09-15-anon/` → **RESULT: PASS**.
+
+**What the live run proves (all four seams + the invariants, on a real tool):**
+- **Seam 2 (spawn) works** — `comeback` spawned two real subagents in the right order.
+- **Seam 3 (tools) works** — `bash`/`python` ran the calculator; `websearch`/`webfetch` ran the
+  verification. **OpenCode HAS native web search** (`websearch`, Exa/Parallel) — the Seam-3
+  WebSearch risk is **resolved for OpenCode**; the freshness gate runs there.
+- **Invariant 2 (producer ≠ checker) holds** — `freshness-checker` ran as a separate agent on
+  `bg-navigator`'s output.
+- **Invariant 3 (deterministic boundary) holds** — every date/amount traced to `lib.benefits`, not
+  prose.
+- **Model/auth:** no CLI auth needed — the Desktop app's OpenCode Zen model ("Big Pickle") ran the
+  agents; `model:` omitted → inherited it. (Seam 5 tier→`provider/model-id` still to pin per §6.1.)
+- **Entry (Seam 4):** the `/comeback` skill became a `mode: primary` agent selected in the UI;
+  natural-phrase auto-trigger did not port (expected).
+
+**Housekeeping from the run:** the freshness-checker's stamp of `bg-legal.md` (dates → 2026-09-15,
+no value changes) was **reverted** — an automated test run must not leave an unverified
+"last-checked today" claim on the source of truth. The `Personal/2026-09-15-anon/` run folder is
+git-ignored (never committed). The remaining hand-neutralization duplication (`.claude` says
+"WebSearch"/"via Bash"; the `.opencode` copies say "web search"/"`python -m lib.benefits`") is
+expected for a spike — the Phase-4 generator emits both from one neutral body + per-tool seams.
 
 **Everything else below is not yet started.**
 
@@ -221,9 +269,13 @@ harness-content dependency was removed:
    §1, or a different one? And which concrete provider models per tier per tool?
 2. **First target confirmation:** generic plan orders OpenCode → Copilot → Codex. Proceed OpenCode-
    first for the Phase 2 spike?
-3. **Authored-source layout (Phase 1):** keep `.claude/` as the authored source and generate the
-   rest, or lift bodies into a neutral `src/agents/` + `src/skills/` and generate `.claude/` too?
-   (Generic plan mildly prefers the latter; the former is the smaller first step.)
+3. **Authored-source layout (Phase 1) — RESOLVED (2026-09-15): keep `.claude/` as the hand-authored
+   source of truth; generate every other tool's tree from it** (no neutral `src/`, and Claude is
+   never generated). Rationale: the primary contributor develops this project in Claude Code, so the
+   `.claude/` tree must stay the directly-edited, first-class artifact. The generator
+   (`tools/gen_agents.py`) reads `.claude/agents/*.md` + body and applies a per-tool adapter
+   (frontmatter transform + tool-name prose substitutions + spawn phrasing) to emit `.opencode/`
+   etc. Generated files carry a "do not edit — regenerate" header.
 4. **`WebSearch` gap:** if a chosen target lacks native web search, are we willing to wire an MCP/
    plug-in for it, or does that drop the target for the benefits/freshness slice?
 
