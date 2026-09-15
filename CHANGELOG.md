@@ -7,6 +7,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.4.0] - 2026-09-15
+
+### Added
+- **Harness-independent output scripts (`scripts/`).** The CV/tracker file pipeline can now run
+  without the Claude Code bundled `docx` / `pdf` / `xlsx` skills — the first step toward running
+  the assistant on other agent tools:
+  - `render_cv_docx.py` — CV JSON → ATS-clean `.docx` (`python-docx`), enforcing the
+    `tailor-cv/ats-rules.md` structure deterministically. JSON contract in `scripts/README.md`.
+  - `docx_to_pdf.py` — `.docx` → `.pdf` via LibreOffice headless (auto-locates `soffice`, verifies
+    the PDF was written, degrades cleanly when LibreOffice is absent).
+  - `tracker_to_xlsx.py` — `tracker.md` → `.xlsx` snapshot (`openpyxl`).
+  - `requirements.txt` (python-docx, openpyxl) and `tests/test_scripts.py` (dependency-guarded with
+    `skipUnless`, so the stdlib-only pre-push gate stays green on a clean clone).
+- **Tool-porting groundwork.** `PORTING-PLAN.md` (generic, reusable method) + `PORTING-PLAN.layoff.md`
+  (this project's companion: six-seam coupling inventory, tier→model map, Layer-4 fixture mapping,
+  invariants, and a runnable Definition of Done).
+
+### Changed
+- CV/tracker pipeline bodies now point at `scripts/` as the portable primary path, with the bundled
+  Claude Code skills noted as the in-harness equivalent: `.claude/agents/cv-builder.md`,
+  `.claude/skills/tailor-cv/SKILL.md`, `agent/orchestrator.md`, `agent/templates/tracker.md`,
+  `CONTRIBUTING.md`.
+
 ## [1.3.2] - 2026-09-10
 
 ### Added
