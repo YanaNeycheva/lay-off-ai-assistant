@@ -15,13 +15,13 @@ support custom subagents and per-agent models natively — so for this project t
 > targets all support real subagents, and the `freshness-checker` gate is only sound when it runs
 > as a *separate* agent from its producer (see Invariant 2). Keep true subagents.
 
-> **▶ Current milestone.** Phases 2, 3 and 5 **COMPLETE for OpenCode.** Phase 2: the benefits slice
-> ran end-to-end in OpenCode Desktop (live). Phase 3: `tools/gen_agents.py` derives the OpenCode
-> agents from `.claude/` + adapter (the resolved §6.3 model). Phase 5: the **full** OpenCode surface
-> — all 6 subagents generated + the hand-authored `comeback` entry — passes `lint_opencode_spike.py`,
-> is idempotent (`--check`), tests stay 50/50, and `.claude/` is byte-identical to v1.4.0.
-> **Next milestone: Phase 6** — add the Codex (TOML) and Copilot adapters to `gen_agents.py`; and
-> **§6.1** — pin the tier→`provider/model-id` map. Point `/goal` there, not at §7's full DoD.
+> **▶ Current milestone.** **OpenCode is fully shipped — released as `v1.5.0`.** Phases 2/3/5/7
+> complete for OpenCode: the benefits slice ran live in OpenCode Desktop; `tools/gen_agents.py`
+> derives all 6 subagents from `.claude/` (+ hand-authored `comeback` entry); models assigned via
+> `tiers.json` (§6.1 resolved, free OpenCode Zen models); README documents the free OpenCode + Claude
+> Code paths; VERSION/CHANGELOG/tag done. Lint PASS, generator idempotent, tests 50/50, `.claude/`
+> byte-identical to v1.4.0. **Next milestone (optional): Phase 6** — add Codex (TOML) and Copilot
+> adapters to `gen_agents.py` (structural-only until those tools are available to run).
 
 ---
 

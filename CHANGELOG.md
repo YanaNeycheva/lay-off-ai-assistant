@@ -7,6 +7,33 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.5.0] - 2026-09-15
+
+### Added
+- **Runs on OpenCode (free), in addition to Claude Code.** The full assistant now runs in
+  [OpenCode](https://opencode.ai) — a free tool with free built-in models (OpenCode Zen), so a
+  person can run the whole benefits → CV → search → interview flow at no cost, no paid AI plan.
+  - `.opencode/agents/` — all 6 subagents **generated** from `.claude/agents/`, plus a hand-authored
+    `comeback` primary/entry that routes to them.
+  - `tools/gen_agents.py` — the generator. **`.claude/` is the hand-authored source of truth; every
+    other tool's tree is generated from it** (the primary contributor develops in Claude Code). It
+    maps the Claude `tools:` list → OpenCode `permission:` map, neutralizes tool-name prose
+    (`WebSearch`→"web search", `Bash`→"in a shell", the `/tailor-cv` skill call → "read & follow the
+    skill file"), and emits `model:` from `tiers.json`. Idempotent; `--check` flags staleness.
+  - `tiers.json` — per-tool tier→model map (single source). OpenCode is assigned its free OpenCode
+    Zen models (`strong` = nemotron-3-ultra-free, `mid` = big-pickle, `cheap` =
+    nemotron-3.5-lightning-free).
+  - `tools/lint_opencode_spike.py` (offline structural lint) and `tools/check_benefits_slice.py`
+    (scoped behavioral assertion for a run folder).
+  - **Validated end-to-end:** the benefits safety slice ran in OpenCode Desktop against the Martin
+    persona — real subagent spawning, `python -m lib.benefits` for deterministic dates/amounts, the
+    web-verified producer≠checker freshness gate, and a correct dossier `Legal / benefits` section.
+- **README:** a "pick how you'll run it" section covering OpenCode (free) and Claude Code.
+
+### Changed
+- The `.claude/` bodies and `README` note the harness-independent path (scripts / OpenCode) alongside
+  the in-Claude equivalents. `.claude/` remains byte-identical in behavior — it is the authored source.
+
 ## [1.4.0] - 2026-09-15
 
 ### Added
