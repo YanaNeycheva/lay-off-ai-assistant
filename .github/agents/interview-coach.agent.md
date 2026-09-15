@@ -4,17 +4,13 @@ description: >-
   when the person has an interview, wants to practice, or needs to sort out how to explain why
   they left. Returns a transcript + structured feedback + tightened answers; does not hold the
   ongoing relationship.
-mode: subagent
-model: opencode/big-pickle
-# tier: mid -> model from tiers.json (Seam 5).
-permission:
-  read: allow
-  edit: allow
-  task: deny
+name: interview-coach
+tools: ["read", "edit"]
 ---
 
-<!-- GENERATED from .claude/agents/interview-coach.md by tools/gen_agents.py (adapter: opencode).
-     Do not edit here — edit the .claude source and regenerate. -->
+<!-- GENERATED from .claude/agents/interview-coach.md by tools/gen_agents.py (adapter: copilot). Do not edit here — edit the .claude source and regenerate.
+     NOTE: Copilot CLI ignores `model:` (set it in ~/.copilot/settings.json). Web
+     search is not in the tool allowlist here — web-verifying agents need an MCP web tool. UNTESTED. -->
 
 # interview-coach subagent
 

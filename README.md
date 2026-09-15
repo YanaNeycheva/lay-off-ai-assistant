@@ -85,7 +85,10 @@ knowledge-base/   the Bulgarian guide + BG legal/benefits facts + sources
 scripts/          harness-independent CV .docx/.pdf + tracker .xlsx output
 ```
 
-The assistant is **authored once in `.claude/`**; the OpenCode tree is *generated* from it, so both tools run the same agent. Contributors edit `.claude/` and regenerate with `python tools/gen_agents.py` — they never hand-edit `.opencode/`. Model choices per tool live in [tiers.json](tiers.json). The full tool-port design is in [PORTING-PLAN.layoff.md](PORTING-PLAN.layoff.md).
+The assistant is **authored once in `.claude/`**; the other tools' trees are *generated* from it with `python tools/gen_agents.py`, so they run the same agent. Contributors edit `.claude/` and regenerate — they never hand-edit the generated trees. Per-tool model choices live in [tiers.json](tiers.json).
+
+- **OpenCode** (`.opencode/agents/`) — generated and **validated** end-to-end (free to run).
+- **Codex** (`.codex/agents/`) and **Copilot** (`.github/agents/`) — generated and structurally linted, but **not yet behaviorally tested** (those tools aren't set up here). Treat them as experimental; the agent bodies are the same, but each tool's entry point and web-search wiring still need a real run to confirm.
 
 Full architecture and conventions are in [CLAUDE.md](CLAUDE.md).
 

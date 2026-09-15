@@ -5,19 +5,13 @@ description: >-
   the first days after a layoff, or whenever the person asks about benefits/deadlines/money.
   Returns a personalized checklist with dates and amounts; flags anything time-sensitive for
   verification.
-mode: subagent
-model: opencode/big-pickle
-# tier: mid -> model from tiers.json (Seam 5).
-permission:
-  read: allow
-  edit: allow
-  bash: allow
-  websearch: allow
-  task: deny
+name: bg-navigator
+tools: ["read", "edit", "execute"]
 ---
 
-<!-- GENERATED from .claude/agents/bg-navigator.md by tools/gen_agents.py (adapter: opencode).
-     Do not edit here — edit the .claude source and regenerate. -->
+<!-- GENERATED from .claude/agents/bg-navigator.md by tools/gen_agents.py (adapter: copilot). Do not edit here — edit the .claude source and regenerate.
+     NOTE: Copilot CLI ignores `model:` (set it in ~/.copilot/settings.json). Web
+     search is not in the tool allowlist here — web-verifying agents need an MCP web tool. UNTESTED. -->
 
 # bg-navigator subagent
 

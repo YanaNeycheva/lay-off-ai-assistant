@@ -7,6 +7,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.6.0] - 2026-09-15
+
+### Added
+- **Experimental Codex and Copilot support (generated, not yet tested).** `tools/gen_agents.py` now
+  emits three tool trees from the `.claude/agents/` source of truth:
+  - OpenCode — `.opencode/agents/*.md` (validated end-to-end).
+  - **Codex** — `.codex/agents/*.toml` (TOML; body → `developer_instructions`,
+    `sandbox_mode = "workspace-write"`).
+  - **Copilot** — `.github/agents/*.agent.md` (YAML frontmatter; `read`/`edit`/`execute` tool
+    allowlist).
+  - Codex and Copilot are **generated + structurally linted only** — those tools aren't installed
+    here, so they are **not behaviorally tested**. Each generated file carries an in-file `UNTESTED`
+    note; the per-tool entry point and web-search wiring still need a real run to confirm.
+- `tools/lint_agents.py` — multi-tool structural lint (OpenCode YAML, Codex TOML via `tomllib`,
+  Copilot frontmatter). Runs offline.
+- `tiers.json` — `codex` and `copilot` sections (models left unset → inherit the tool default;
+  Copilot CLI ignores the agent `model:` field).
+
+### Changed
+- README notes Codex/Copilot as experimental/untested alongside the validated OpenCode + Claude paths.
+
+### Removed
+- `tools/lint_opencode_spike.py` — superseded by the multi-tool `tools/lint_agents.py`.
+
 ## [1.5.0] - 2026-09-15
 
 ### Added

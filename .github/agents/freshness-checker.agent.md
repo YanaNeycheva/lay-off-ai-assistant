@@ -6,18 +6,13 @@ description: >-
   documents rules. Does NOT produce the domain answer — it checks someone else's. Returns a per-
   claim verdict (confirmed / unconfirmed) with official source + date, and stamps last-verified
   dates back into knowledge-base/bg-legal.md.
-mode: subagent
-model: opencode/nemotron-3-ultra-free
-# tier: strong -> model from tiers.json (Seam 5).
-permission:
-  read: allow
-  edit: allow
-  websearch: allow
-  task: deny
+name: freshness-checker
+tools: ["read", "edit"]
 ---
 
-<!-- GENERATED from .claude/agents/freshness-checker.md by tools/gen_agents.py (adapter: opencode).
-     Do not edit here — edit the .claude source and regenerate. -->
+<!-- GENERATED from .claude/agents/freshness-checker.md by tools/gen_agents.py (adapter: copilot). Do not edit here — edit the .claude source and regenerate.
+     NOTE: Copilot CLI ignores `model:` (set it in ~/.copilot/settings.json). Web
+     search is not in the tool allowlist here — web-verifying agents need an MCP web tool. UNTESTED. -->
 
 # freshness-checker subagent
 

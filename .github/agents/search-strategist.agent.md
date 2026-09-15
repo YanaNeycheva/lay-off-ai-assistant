@@ -4,17 +4,13 @@ description: >-
   outreach drafts. Invoke from the orchestrator when the person doesn't know where to start, is
   searching without results, or needs outreach messages. Returns a plan + tracker + message
   drafts; does not hold the relationship.
-mode: subagent
-model: opencode/big-pickle
-# tier: mid -> model from tiers.json (Seam 5).
-permission:
-  read: allow
-  edit: allow
-  task: deny
+name: search-strategist
+tools: ["read", "edit"]
 ---
 
-<!-- GENERATED from .claude/agents/search-strategist.md by tools/gen_agents.py (adapter: opencode).
-     Do not edit here — edit the .claude source and regenerate. -->
+<!-- GENERATED from .claude/agents/search-strategist.md by tools/gen_agents.py (adapter: copilot). Do not edit here — edit the .claude source and regenerate.
+     NOTE: Copilot CLI ignores `model:` (set it in ~/.copilot/settings.json). Web
+     search is not in the tool allowlist here — web-verifying agents need an MCP web tool. UNTESTED. -->
 
 # search-strategist subagent
 

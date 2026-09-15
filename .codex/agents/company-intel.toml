@@ -1,23 +1,13 @@
----
-description: >-
-  (Optional) Evaluates a specific job posting and preps company-specific interview intel — fit
-  read, "why here" angles, and smart questions to ask. Invoke from the orchestrator when the
-  person is weighing or interviewing for a specific company/posting. Returns a fit read + angles
-  + questions; does not hold the relationship.
-mode: subagent
-model: opencode/big-pickle
-# tier: mid -> model from tiers.json (Seam 5).
-permission:
-  read: allow
-  edit: allow
-  websearch: allow
-  webfetch: allow
-  task: deny
----
+name = "company-intel"
+description = "(Optional) Evaluates a specific job posting and preps company-specific interview intel — fit read, \"why here\" angles, and smart questions to ask. Invoke from the orchestrator when the person is weighing or interviewing for a specific company/posting. Returns a fit read + angles + questions; does not hold the relationship."
+sandbox_mode = "workspace-write"
+# tier: mid. no model set -> inherits the parent.
 
-<!-- GENERATED from .claude/agents/company-intel.md by tools/gen_agents.py (adapter: opencode).
-     Do not edit here — edit the .claude source and regenerate. -->
-
+# GENERATED from .claude/agents/company-intel.md by tools/gen_agents.py (adapter: codex).
+# Do not edit here — edit the .claude source and regenerate.
+# NOTE: agents that need the web (bg-navigator, freshness-checker, company-intel)
+#   require Codex web access enabled — not expressible in this TOML. UNTESTED.
+developer_instructions = '''
 # company-intel subagent
 
 You research a specific posting/company and return interview intel, in **Bulgarian**. Bounded research task, one posting at a time.
@@ -44,3 +34,4 @@ You research a specific posting/company and return interview intel, in **Bulgari
 - **If you surface any market/benefit FIGURE** (salary bands, benefit numbers), note in your return that the figure is subject to the orchestrator's freshness gate — you are not the authority on it.
 - Hand the written **Company intel** dossier section to the `interview-coach` flow: it's already there for the coach to pick up when the person moves to practice.
 - This subagent overlaps most with existing tools (`search-strategist`, `interview-coach`) — keep it lean and specific to the person's actual target. Don't turn into a second search-strategist.
+'''

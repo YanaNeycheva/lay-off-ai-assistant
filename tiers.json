@@ -5,5 +5,17 @@
     "strong": "opencode/nemotron-3-ultra-free",
     "mid": "opencode/big-pickle",
     "cheap": "opencode/nemotron-3.5-lightning-free"
+  },
+  "codex": {
+    "//": "Codex is NOT installed/authed on this machine — UNTESTED. model unset -> Codex subagents inherit the parent model. After authing Codex, set e.g. `gpt-5.x` per tier and regenerate.",
+    "strong": null,
+    "mid": null,
+    "cheap": null
+  },
+  "copilot": {
+    "//": "Copilot CLI IGNORES the agent `model:` field (it uses ~/.copilot/settings.json). Left null; the generator omits model for Copilot regardless. UNTESTED — Copilot not installed here.",
+    "strong": null,
+    "mid": null,
+    "cheap": null
   }
 }

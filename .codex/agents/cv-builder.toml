@@ -1,23 +1,13 @@
----
-description: >-
-  Builds, ATS-audits, and tailors the person's CV. Wraps the tailor-cv flow (read & follow
-  `.claude/skills/tailor-cv/SKILL.md`). Invoke from the orchestrator when the person needs a CV
-  created, cleaned for ATS, or tailored to a specific posting. Returns a concise result +
-  artifact paths; does not talk to the person directly.
-mode: subagent
-model: opencode/big-pickle
-# tier: mid -> model from tiers.json (Seam 5).
-permission:
-  read: allow
-  edit: allow
-  bash: allow
-  webfetch: allow
-  task: deny
----
+name = "cv-builder"
+description = "Builds, ATS-audits, and tailors the person's CV. Wraps the tailor-cv flow (read & follow `.claude/skills/tailor-cv/SKILL.md`). Invoke from the orchestrator when the person needs a CV created, cleaned for ATS, or tailored to a specific posting. Returns a concise result + artifact paths; does not talk to the person directly."
+sandbox_mode = "workspace-write"
+# tier: mid. no model set -> inherits the parent.
 
-<!-- GENERATED from .claude/agents/cv-builder.md by tools/gen_agents.py (adapter: opencode).
-     Do not edit here — edit the .claude source and regenerate. -->
-
+# GENERATED from .claude/agents/cv-builder.md by tools/gen_agents.py (adapter: codex).
+# Do not edit here — edit the .claude source and regenerate.
+# NOTE: agents that need the web (bg-navigator, freshness-checker, company-intel)
+#   require Codex web access enabled — not expressible in this TOML. UNTESTED.
+developer_instructions = '''
 # cv-builder subagent
 
 You produce CV artifacts. You are a tool the orchestrator calls, not the voice the person hears — return a **concise** result (paths + what changed + open gaps), never a monologue.
@@ -39,3 +29,4 @@ You expect a **complete CV brief** in the dossier's CV section — the orchestra
 - **Never write CV files to the project repo root** — only the person's CV workspace (per `ats-rules.md`).
 - If the base CV isn't ATS-clean, stop and flag it (the skill enforces this) rather than tailoring on top of a broken base.
 - **You run headless — never interview the person.** Gap inputs come from the front-loaded brief in the dossier. If the brief is missing something you can't resolve from it, **return a short list of residual gaps to the orchestrator** to ask one-at-a-time in its own voice — that's the normal path. Writing a batched `CV_info_needed.md` is an explicit **last-resort fallback** (e.g. the residual list is large), not the default.
+'''

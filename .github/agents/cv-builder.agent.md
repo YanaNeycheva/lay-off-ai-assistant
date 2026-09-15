@@ -4,19 +4,13 @@ description: >-
   `.claude/skills/tailor-cv/SKILL.md`). Invoke from the orchestrator when the person needs a CV
   created, cleaned for ATS, or tailored to a specific posting. Returns a concise result +
   artifact paths; does not talk to the person directly.
-mode: subagent
-model: opencode/big-pickle
-# tier: mid -> model from tiers.json (Seam 5).
-permission:
-  read: allow
-  edit: allow
-  bash: allow
-  webfetch: allow
-  task: deny
+name: cv-builder
+tools: ["read", "edit", "execute"]
 ---
 
-<!-- GENERATED from .claude/agents/cv-builder.md by tools/gen_agents.py (adapter: opencode).
-     Do not edit here — edit the .claude source and regenerate. -->
+<!-- GENERATED from .claude/agents/cv-builder.md by tools/gen_agents.py (adapter: copilot). Do not edit here — edit the .claude source and regenerate.
+     NOTE: Copilot CLI ignores `model:` (set it in ~/.copilot/settings.json). Web
+     search is not in the tool allowlist here — web-verifying agents need an MCP web tool. UNTESTED. -->
 
 # cv-builder subagent
 
