@@ -24,8 +24,16 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 CLAUDE_AGENTS = ROOT / ".claude" / "agents"
 
-# Agents in the validated pilot slice (the ones whose seams are fully mapped).
-SLICE = ["bg-navigator", "freshness-checker"]
+# All subagents (.claude/agents/*.md). The `comeback` primary/entry is a per-tool recipe
+# (Seam 4), hand-authored in .opencode/agents/comeback.md — not generated from a subagent body.
+AGENTS = [
+    "bg-navigator",
+    "freshness-checker",
+    "cv-builder",
+    "interview-coach",
+    "search-strategist",
+    "company-intel",
+]
 
 # Per-agent model tier (Seam 5); model id is omitted -> inherits the tool default until §6.1 pins it.
 TIERS = {"freshness-checker": "strong"}
@@ -44,10 +52,13 @@ OPENCODE = {
     },
     "perm_order": ["read", "edit", "bash", "websearch", "webfetch"],
     # Seam 3: tool-name references in prose -> OpenCode-neutral wording.
+    # (The Claude `Skill` tool has no OpenCode equivalent: /tailor-cv becomes a
+    # read-and-follow of the skill file, which the agent already has `read` for.)
     "prose_subs": [
         (r"\bWebSearch\b", "web search"),
         (r"\bWebFetch\b", "web fetch"),
         (r"via Bash", "in a shell"),
+        (r"`?/tailor-cv`? skill", "tailor-cv flow (read & follow `.claude/skills/tailor-cv/SKILL.md`)"),
     ],
 }
 
@@ -82,9 +93,13 @@ def render_opencode(name: str, fm: dict, body: str) -> str:
 
     tier = TIERS.get(name, DEFAULT_TIER)
 
+    desc = fm.get("description", name)
+    for pattern, repl in OPENCODE["prose_subs"]:
+        desc = re.sub(pattern, repl, desc)
+
     out = []
     out.append("---")
-    out.append(fold_description(fm.get("description", name)))
+    out.append(fold_description(desc))
     out.append("mode: subagent")
     out.append(f"# tier: {tier}. model omitted -> inherits the tool default "
                "(Seam 5, PORTING-PLAN.layoff.md §6.1).")
@@ -106,7 +121,7 @@ def render_opencode(name: str, fm: dict, body: str) -> str:
 
 def generate() -> dict[Path, str]:
     outputs: dict[Path, str] = {}
-    for name in SLICE:
+    for name in AGENTS:
         src = CLAUDE_AGENTS / f"{name}.md"
         fm, body = parse_claude_agent(src.read_text(encoding="utf-8"))
         outputs[OPENCODE["dir"] / f"{name}.md"] = render_opencode(name, fm, body)

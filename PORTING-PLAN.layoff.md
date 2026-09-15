@@ -15,12 +15,13 @@ support custom subagents and per-agent models natively — so for this project t
 > targets all support real subagents, and the `freshness-checker` gate is only sound when it runs
 > as a *separate* agent from its producer (see Invariant 2). Keep true subagents.
 
-> **▶ Current milestone.** Phase 2 pilot spike (OpenCode, benefits safety slice) — **COMPLETE,
-> incl. a live behavioral run.** Structural checks green (`unittest`, `lint_opencode_spike.py`,
-> empty `.claude/` diff vs v1.4.0) **and** the slice ran end-to-end in OpenCode Desktop against the
-> Martin persona (`tools/check_benefits_slice.py` → PASS). **Next milestone: Phase 3** — extract the
-> per-tool adapter descriptor from the spike's friction log, and re-derive the slice from
-> `body + adapter`. Point `/goal` there, not at §7's full DoD (which is the *final* done).
+> **▶ Current milestone.** Phases 2, 3 and 5 **COMPLETE for OpenCode.** Phase 2: the benefits slice
+> ran end-to-end in OpenCode Desktop (live). Phase 3: `tools/gen_agents.py` derives the OpenCode
+> agents from `.claude/` + adapter (the resolved §6.3 model). Phase 5: the **full** OpenCode surface
+> — all 6 subagents generated + the hand-authored `comeback` entry — passes `lint_opencode_spike.py`,
+> is idempotent (`--check`), tests stay 50/50, and `.claude/` is byte-identical to v1.4.0.
+> **Next milestone: Phase 6** — add the Codex (TOML) and Copilot adapters to `gen_agents.py`; and
+> **§6.1** — pin the tier→`provider/model-id` map. Point `/goal` there, not at §7's full DoD.
 
 ---
 

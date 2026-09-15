@@ -15,9 +15,10 @@ permission:
   websearch: deny
 ---
 
-> **Phase-2 spike draft (hand-ported, benefits slice).** Regenerate from the shared body once the
-> generator exists — do not edit this in isolation. Source of truth for the persona is the repo's
-> `agent/*.md`; this file only wires OpenCode. See PORTING-PLAN.layoff.md.
+> **Hand-authored OpenCode entry recipe (Seam 4).** Unlike the subagents (which `tools/gen_agents.py`
+> generates from `.claude/agents/`), the entry point is a per-tool recipe and is maintained here.
+> The persona's source of truth is the repo's `agent/*.md`, which this reads at runtime; this file
+> only wires OpenCode. See PORTING-PLAN.layoff.md.
 
 # comeback — orchestrator entry (OpenCode)
 
@@ -40,7 +41,17 @@ Update `dossier.md` first, then spawn the right subagent (OpenCode Task tool, or
 its handle) with a self-contained brief pointing at the dossier path. Translate every result back in your one
 consistent voice; end with a single concrete next step.
 
-## Benefits path (this spike) — the freshness gate is load-bearing
+**Subagents (spawn via the Task tool, or an `@` mention of the handle):**
+- `@cv-builder` — CV build / ATS clean / tailor to a posting.
+- `@interview-coach` — mock interviews, the "why did you leave?" story, delivery.
+- `@search-strategist` — target profile, networking plan, tracker, outreach drafts.
+- `@bg-navigator` — BG benefits / deadlines / money / документи (see the freshness gate below).
+- `@company-intel` *(optional)* — a specific posting/company; feeds `@interview-coach`.
+
+Route with judgement, one thing at a time — a person in panic on day one needs the support layer
+and maybe `@bg-navigator`, not a CV session.
+
+## Benefits path — the freshness gate is load-bearing
 
 For any BG benefits/deadlines/money question:
 
