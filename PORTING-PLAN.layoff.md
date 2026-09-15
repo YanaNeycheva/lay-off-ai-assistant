@@ -266,8 +266,15 @@ expected for a spike — the Phase-4 generator emits both from one neutral body 
 
 ## 6. Open decisions for the user
 
-1. **Tier→model map (Seam 5):** the repo sets no models today. Adopt the `strong`/`mid` split in
-   §1, or a different one? And which concrete provider models per tier per tool?
+1. **Tier→model map (Seam 5) — RESOLVED (2026-09-15):** models live in `tiers.json` (single source;
+   the generator emits each agent's `model:` from it). OpenCode is assigned its **free** OpenCode Zen
+   models, read live from the app's model selector: `strong` → `opencode/nemotron-3-ultra-free`
+   (orchestrator + freshness-checker), `mid` → `opencode/big-pickle` (proven end-to-end in the live
+   run), `cheap` → `opencode/nemotron-3.5-lightning-free`. When a real provider is authed in OpenCode,
+   swap the IDs in `tiers.json` and regenerate — no agent files touched. **On "make it dynamic":** the
+   assignment IS driven by the user's available models (read from the tool), and `tiers.json` +
+   regenerate is the refresh path; a fully-automatic query isn't practical for the GUI-only Desktop
+   app (no headless model-list API), so the config-file-of-record is the pragmatic equivalent.
 2. **First target confirmation:** generic plan orders OpenCode → Copilot → Codex. Proceed OpenCode-
    first for the Phase 2 spike?
 3. **Authored-source layout (Phase 1) — RESOLVED (2026-09-15): keep `.claude/` as the hand-authored

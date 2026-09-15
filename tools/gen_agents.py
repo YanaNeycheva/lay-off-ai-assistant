@@ -16,6 +16,7 @@ Run tools/lint_opencode_spike.py afterwards to validate the emitted tree.
 
 from __future__ import annotations
 
+import json
 import re
 import sys
 import textwrap
@@ -23,6 +24,9 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 CLAUDE_AGENTS = ROOT / ".claude" / "agents"
+
+# Tier -> model map (Seam 5), single source of truth. Model IDs live here, never in agent files.
+TIER_MAP = json.loads((ROOT / "tiers.json").read_text(encoding="utf-8"))
 
 # All subagents (.claude/agents/*.md). The `comeback` primary/entry is a per-tool recipe
 # (Seam 4), hand-authored in .opencode/agents/comeback.md — not generated from a subagent body.
@@ -101,8 +105,12 @@ def render_opencode(name: str, fm: dict, body: str) -> str:
     out.append("---")
     out.append(fold_description(desc))
     out.append("mode: subagent")
-    out.append(f"# tier: {tier}. model omitted -> inherits the tool default "
-               "(Seam 5, PORTING-PLAN.layoff.md §6.1).")
+    model = TIER_MAP.get("opencode", {}).get(tier)
+    if model:
+        out.append(f"model: {model}")
+        out.append(f"# tier: {tier} -> model from tiers.json (Seam 5, PORTING-PLAN.layoff.md §6.1).")
+    else:
+        out.append(f"# tier: {tier}. no model in tiers.json -> inherits the tool default.")
     out.append("permission:")
     out.extend(perm_lines)
     out.append("---")

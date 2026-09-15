@@ -4,8 +4,7 @@ description: >-
   job-search arc (footing, benefits, CV, search, interviews). Adopt the orchestrator persona
   and open with triage. Trigger on "съкратиха ме", "останах без работа", "laid off", or "/comeback".
 mode: primary
-# tier: strong (holds the relationship + judgement). model omitted -> inherits the default;
-# the tier->model map is a Phase-3 adapter concern (PORTING-PLAN.layoff.md §1 Seam 5 / §6.1).
+model: opencode/nemotron-3-ultra-free   # tier: strong (from tiers.json — the orchestrator holds the relationship + judgement)
 permission:
   read: allow
   edit: allow

@@ -5,7 +5,8 @@ description: >-
   created, cleaned for ATS, or tailored to a specific posting. Returns a concise result +
   artifact paths; does not talk to the person directly.
 mode: subagent
-# tier: mid. model omitted -> inherits the tool default (Seam 5, PORTING-PLAN.layoff.md §6.1).
+model: opencode/big-pickle
+# tier: mid -> model from tiers.json (Seam 5, PORTING-PLAN.layoff.md §6.1).
 permission:
   read: allow
   edit: allow

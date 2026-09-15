@@ -5,7 +5,8 @@ description: >-
   they left. Returns a transcript + structured feedback + tightened answers; does not hold the
   ongoing relationship.
 mode: subagent
-# tier: mid. model omitted -> inherits the tool default (Seam 5, PORTING-PLAN.layoff.md §6.1).
+model: opencode/big-pickle
+# tier: mid -> model from tiers.json (Seam 5, PORTING-PLAN.layoff.md §6.1).
 permission:
   read: allow
   edit: allow

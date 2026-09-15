@@ -7,7 +7,8 @@ description: >-
   claim verdict (confirmed / unconfirmed) with official source + date, and stamps last-verified
   dates back into knowledge-base/bg-legal.md.
 mode: subagent
-# tier: strong. model omitted -> inherits the tool default (Seam 5, PORTING-PLAN.layoff.md §6.1).
+model: opencode/nemotron-3-ultra-free
+# tier: strong -> model from tiers.json (Seam 5, PORTING-PLAN.layoff.md §6.1).
 permission:
   read: allow
   edit: allow
