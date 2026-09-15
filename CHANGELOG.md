@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.6.1] - 2026-09-15
+
+### Added
+- `tests/test_generated_trees.py` — fails the test gate when the generated tool trees
+  (`.opencode/`, `.codex/`, `.github/agents/`) drift from the `.claude/` source, pointing you to
+  `python tools/gen_agents.py`. Closes the gap where editing `.claude/` without regenerating left
+  the other tools silently running stale behavior — the single-source-of-truth guarantee is now
+  enforced by the pre-push gate, not just documented.
+
 ## [1.6.0] - 2026-09-15
 
 ### Added
