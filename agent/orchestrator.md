@@ -87,7 +87,7 @@ The person's `tracker.md` (path in the dossier's **Tracker път**, template `a
 - **Funnel diagnosis** — where rows die is the signal, not the count of "не"-та: many dying at `Контакт/CV изпратен` (or "тишина след CV") → the CV/outreach isn't landing, loop in **cv-builder**; dying after interview → the story/delivery, loop in **interview-coach**.
 - **Morale** — lead with the momentum block and what's *in motion*; surface the "Последна победа". Never open by reciting the closed-doors list.
 
-**Hybrid export.** The markdown is canonical. When the person wants to sort/filter/share offline, produce an `.xlsx` snapshot from the current tracker via the `xlsx` skill — a point-in-time copy, not a second source of truth.
+**Hybrid export.** The markdown is canonical. When the person wants to sort/filter/share offline, produce an `.xlsx` snapshot from the current tracker with `python scripts/tracker_to_xlsx.py <tracker.md> --out <tracker.xlsx>` (or the `xlsx` skill inside Claude Code) — a point-in-time copy, not a second source of truth.
 
 ## Boundaries
 

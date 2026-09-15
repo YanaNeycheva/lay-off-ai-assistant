@@ -4,7 +4,7 @@ An interactive assistant that supports a laid-off professional through the **who
 
 - **Language (what you see):** Bulgarian
 - **Who it's for:** any laid-off professional — junior to senior, any industry
-- **Where it runs:** [Claude Code](https://claude.com/claude-code) (desktop app, CLI, or IDE) — it's an agent you talk to, not a website
+- **Where it runs:** [Claude Code](https://claude.com/claude-code), **or [OpenCode](https://opencode.ai) for free** (free tool + free built-in models — no paid AI plan needed) — it's an agent you talk to, not a website
 - **Sibling project:** the [uncoachable.work](https://uncoachable.work) blog; the guide that grounds this agent is also published there
 
 ## Why this exists
@@ -28,16 +28,26 @@ It's not a CV tool with extras. It covers six things, and it decides which one y
 
 ## How to use it
 
-### Before you start
-1. Open this project in **Claude Code** and make **this folder** the working directory — that's what puts the subagents and the CV skill in scope. (On a plain Claude.ai project without them, only the conversation works — no file output.)
-2. *Optional:* install **LibreOffice** if you want CV **PDFs** rendered locally with correct Cyrillic. Without it you still get the `.docx`.
+### Before you start — pick how you'll run it
+The assistant is the same either way; the only difference is the tool you talk to it in.
 
-### Start a session
-Type **`/comeback`** — or just say what happened, in Bulgarian or English:
+**Option A — OpenCode (free, no paid plan).** [OpenCode](https://opencode.ai) is free and ships with free built-in models (OpenCode Zen), so you can run the **whole** assistant at no cost — no Claude subscription, no API key.
+1. Install OpenCode and open **this project folder** in it.
+2. Start a new session and pick the **Comeback** agent (the agent selector, bottom-left).
+3. Say what happened — it opens with triage and takes it from there. The default free model works out of the box; the full benefits → CV → search → interview flow runs on it.
+
+**Option B — Claude Code.** The tool this project is authored in.
+1. Open this project in **Claude Code** with **this folder** as the working directory — that's what puts the subagents and the CV skill in scope. (On a plain Claude.ai project without them, only the conversation works — no file output.)
+2. Type **`/comeback`**, or just say what happened.
+
+*Optional (either tool):* install **LibreOffice** if you want CV **PDFs** rendered locally with correct Cyrillic. Without it you still get the `.docx`.
+
+### Just talk to it
+Whichever tool you picked, say what happened — in Bulgarian or English:
 
 > „Съкратиха ме." · „Останах без работа." · „laid off"
 
-It opens with a short, human check-in — what happened and where you are — and then routes to whatever you need. **You don't pick a mode or memorize commands; you just talk to it.**
+It opens with a short, human check-in — what happened and where you are — and then routes to whatever you need. **You don't pick a mode or memorize commands; you just talk to it.** (In Claude Code you can also type `/comeback`; in OpenCode you pick the **Comeback** agent first, then talk.)
 
 ### What you can ask for
 You steer it in plain language. A few examples of what to say and what happens:
@@ -67,11 +77,18 @@ One **orchestrator** is the single voice you talk to. It holds the relationship 
 
 ```
 agent/            orchestrator (the voice), triage, always-on support, dossier schema
-.claude/agents/   the subagents: cv-builder, interview-coach, search-strategist,
+.claude/agents/   the subagents (authored here): cv-builder, interview-coach, search-strategist,
                   bg-navigator, company-intel, and the freshness-checker verifier
 .claude/skills/   /comeback (the front door) and /tailor-cv (the CV engine)
+.opencode/agents/ the same agents, generated for OpenCode from .claude/ (tools/gen_agents.py)
 knowledge-base/   the Bulgarian guide + BG legal/benefits facts + sources
+scripts/          harness-independent CV .docx/.pdf + tracker .xlsx output
 ```
+
+The assistant is **authored once in `.claude/`**; the other tools' trees are *generated* from it with `python tools/gen_agents.py`, so they run the same agent. Contributors edit `.claude/` and regenerate — they never hand-edit the generated trees. Per-tool model choices live in [tiers.json](tiers.json).
+
+- **OpenCode** (`.opencode/agents/`) — generated and **validated** end-to-end (free to run).
+- **Codex** (`.codex/agents/`) and **Copilot** (`.github/agents/`) — generated and structurally linted, but **not yet behaviorally tested** (those tools aren't set up here). Treat them as experimental; the agent bodies are the same, but each tool's entry point and web-search wiring still need a real run to confirm.
 
 Full architecture and conventions are in [CLAUDE.md](CLAUDE.md).
 

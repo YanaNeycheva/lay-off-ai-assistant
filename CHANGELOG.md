@@ -7,6 +7,89 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.6.1] - 2026-09-15
+
+### Added
+- `tests/test_generated_trees.py` — fails the test gate when the generated tool trees
+  (`.opencode/`, `.codex/`, `.github/agents/`) drift from the `.claude/` source, pointing you to
+  `python tools/gen_agents.py`. Closes the gap where editing `.claude/` without regenerating left
+  the other tools silently running stale behavior — the single-source-of-truth guarantee is now
+  enforced by the pre-push gate, not just documented.
+
+## [1.6.0] - 2026-09-15
+
+### Added
+- **Experimental Codex and Copilot support (generated, not yet tested).** `tools/gen_agents.py` now
+  emits three tool trees from the `.claude/agents/` source of truth:
+  - OpenCode — `.opencode/agents/*.md` (validated end-to-end).
+  - **Codex** — `.codex/agents/*.toml` (TOML; body → `developer_instructions`,
+    `sandbox_mode = "workspace-write"`).
+  - **Copilot** — `.github/agents/*.agent.md` (YAML frontmatter; `read`/`edit`/`execute` tool
+    allowlist).
+  - Codex and Copilot are **generated + structurally linted only** — those tools aren't installed
+    here, so they are **not behaviorally tested**. Each generated file carries an in-file `UNTESTED`
+    note; the per-tool entry point and web-search wiring still need a real run to confirm.
+- `tools/lint_agents.py` — multi-tool structural lint (OpenCode YAML, Codex TOML via `tomllib`,
+  Copilot frontmatter). Runs offline.
+- `tiers.json` — `codex` and `copilot` sections (models left unset → inherit the tool default;
+  Copilot CLI ignores the agent `model:` field).
+
+### Changed
+- README notes Codex/Copilot as experimental/untested alongside the validated OpenCode + Claude paths.
+
+### Removed
+- `tools/lint_opencode_spike.py` — superseded by the multi-tool `tools/lint_agents.py`.
+
+## [1.5.0] - 2026-09-15
+
+### Added
+- **Runs on OpenCode (free), in addition to Claude Code.** The full assistant now runs in
+  [OpenCode](https://opencode.ai) — a free tool with free built-in models (OpenCode Zen), so a
+  person can run the whole benefits → CV → search → interview flow at no cost, no paid AI plan.
+  - `.opencode/agents/` — all 6 subagents **generated** from `.claude/agents/`, plus a hand-authored
+    `comeback` primary/entry that routes to them.
+  - `tools/gen_agents.py` — the generator. **`.claude/` is the hand-authored source of truth; every
+    other tool's tree is generated from it** (the primary contributor develops in Claude Code). It
+    maps the Claude `tools:` list → OpenCode `permission:` map, neutralizes tool-name prose
+    (`WebSearch`→"web search", `Bash`→"in a shell", the `/tailor-cv` skill call → "read & follow the
+    skill file"), and emits `model:` from `tiers.json`. Idempotent; `--check` flags staleness.
+  - `tiers.json` — per-tool tier→model map (single source). OpenCode is assigned its free OpenCode
+    Zen models (`strong` = nemotron-3-ultra-free, `mid` = big-pickle, `cheap` =
+    nemotron-3.5-lightning-free).
+  - `tools/lint_opencode_spike.py` (offline structural lint) and `tools/check_benefits_slice.py`
+    (scoped behavioral assertion for a run folder).
+  - **Validated end-to-end:** the benefits safety slice ran in OpenCode Desktop against the Martin
+    persona — real subagent spawning, `python -m lib.benefits` for deterministic dates/amounts, the
+    web-verified producer≠checker freshness gate, and a correct dossier `Legal / benefits` section.
+- **README:** a "pick how you'll run it" section covering OpenCode (free) and Claude Code.
+
+### Changed
+- The `.claude/` bodies and `README` note the harness-independent path (scripts / OpenCode) alongside
+  the in-Claude equivalents. `.claude/` remains byte-identical in behavior — it is the authored source.
+
+## [1.4.0] - 2026-09-15
+
+### Added
+- **Harness-independent output scripts (`scripts/`).** The CV/tracker file pipeline can now run
+  without the Claude Code bundled `docx` / `pdf` / `xlsx` skills — the first step toward running
+  the assistant on other agent tools:
+  - `render_cv_docx.py` — CV JSON → ATS-clean `.docx` (`python-docx`), enforcing the
+    `tailor-cv/ats-rules.md` structure deterministically. JSON contract in `scripts/README.md`.
+  - `docx_to_pdf.py` — `.docx` → `.pdf` via LibreOffice headless (auto-locates `soffice`, verifies
+    the PDF was written, degrades cleanly when LibreOffice is absent).
+  - `tracker_to_xlsx.py` — `tracker.md` → `.xlsx` snapshot (`openpyxl`).
+  - `requirements.txt` (python-docx, openpyxl) and `tests/test_scripts.py` (dependency-guarded with
+    `skipUnless`, so the stdlib-only pre-push gate stays green on a clean clone).
+- **Tool-porting groundwork.** `PORTING-PLAN.md` (generic, reusable method) + `PORTING-PLAN.layoff.md`
+  (this project's companion: six-seam coupling inventory, tier→model map, Layer-4 fixture mapping,
+  invariants, and a runnable Definition of Done).
+
+### Changed
+- CV/tracker pipeline bodies now point at `scripts/` as the portable primary path, with the bundled
+  Claude Code skills noted as the in-harness equivalent: `.claude/agents/cv-builder.md`,
+  `.claude/skills/tailor-cv/SKILL.md`, `agent/orchestrator.md`, `agent/templates/tracker.md`,
+  `CONTRIBUTING.md`.
+
 ## [1.3.2] - 2026-09-10
 
 ### Added
